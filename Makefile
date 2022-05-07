@@ -13,6 +13,10 @@ package-install:
 make lint:
 	poetry run flake8 gendiff
 
+make check:
+	poetry run pytest
+
+
 
 
 .PHONY: install test lint selfcheck check build
