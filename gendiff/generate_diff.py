@@ -13,8 +13,8 @@ def convert_value(value):
 
 
 def generate_diff(file1, file2):
-    dict1 = json.load(open(f'gendiff/tests/fixtures/{file1}'))
-    dict2 = json.load(open(f'gendiff/tests/fixtures/{file2}'))
+    dict1 = json.load(open(f'tests/fixtures/{file1}'))
+    dict2 = json.load(open(f'tests/fixtures/{file2}'))
     sorted_keys_set = sorted(set(dict1.keys()).union(set(dict2.keys())))
     result_diff = ''
     for key in sorted_keys_set:
