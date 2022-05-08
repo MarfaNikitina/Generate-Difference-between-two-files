@@ -1,4 +1,3 @@
-@file1file2_json_fixture
 {
 - follow: false
   host: hexlet.io

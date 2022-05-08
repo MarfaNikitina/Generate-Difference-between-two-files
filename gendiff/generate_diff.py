@@ -23,7 +23,7 @@ def generate_diff(file1, file2):
                 result_diff += f'\n  {key}: {convert_value(dict1[key])}'
             else:
                 result_diff += f'\n- {key}: {convert_value(dict1[key])}' \
-                               f' \n+ {key}: {convert_value(dict2[key])}'
+                               f'\n+ {key}: {convert_value(dict2[key])}'
         elif key in dict1.keys() and key not in dict2.keys():
             result_diff += f'\n- {key}: {convert_value(dict1[key])}'
         elif key not in dict1.keys() and key in dict2.keys():
