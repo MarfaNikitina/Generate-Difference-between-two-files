@@ -1,5 +1,6 @@
 # !/usr/bin/env python3
 import json
+import yaml
 
 
 def convert_value(value):
@@ -11,10 +12,17 @@ def convert_value(value):
         value = 'null'
     return value
 
+def load_file_by_format(file):
+    if file.endswith(".json"):
+        loaded_file = json.load(open(f'tests/fixtures/{file}'))
+    elif file.endswith(".yml") or file.endswith(".yaml"):
+        loaded_file = yaml.safe_load(open(f'tests/fixtures/{file}'))
+    return loaded_file
+
 
 def generate_diff(file1, file2):
-    dict1 = json.load(open(f'tests/fixtures/{file1}'))
-    dict2 = json.load(open(f'tests/fixtures/{file2}'))
+    dict1 = load_file_by_format(file1)
+    dict2 = load_file_by_format(file2)
     sorted_keys_set = sorted(set(dict1.keys()).union(set(dict2.keys())))
     result_diff = ''
     for key in sorted_keys_set:
