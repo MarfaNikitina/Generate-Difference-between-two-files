@@ -12,6 +12,7 @@ def convert_value(value):
         value = 'null'
     return value
 
+
 def load_file_by_format(file):
     if file.endswith(".json"):
         loaded_file = json.load(open(f'tests/fixtures/{file}'))
