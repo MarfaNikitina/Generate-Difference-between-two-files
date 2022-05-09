@@ -15,6 +15,7 @@ make lint:
 
 make check:
 	poetry run pytest
+	make test-coverage
 
 
 
