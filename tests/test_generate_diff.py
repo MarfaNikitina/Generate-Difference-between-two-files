@@ -35,21 +35,21 @@ def resf1f2_y():
 
 @pytest.fixture
 def f1path_j():
-    return 'file1path.json'
+    return 'filepath1.json'
 
 
 @pytest.fixture
 def f2path_j():
-    return 'file2path.json'
+    return 'filepath2.json'
 
 @pytest.fixture
 def f1path_y():
-    return 'file1path.yml'
+    return 'filepath1.yml'
 
 
 @pytest.fixture
 def f2path_y():
-    return 'file2path.yml'
+    return 'filepath2.yml'
 
 
 @pytest.fixture
