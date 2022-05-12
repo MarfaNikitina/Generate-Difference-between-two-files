@@ -98,11 +98,10 @@ OPEN_BRACKET = '{'
 CLOSE_BRACKET = '}'
 TAB = '  '
 LINE_BREAK = '\n'
-COLON = ':'
+COLON = ': '
 
 
-def stylish(some_dict, depth=1):  # indent=TAB
-    # print(f'INDNET IS: "{indent}"')
+def stylish(some_dict, depth=1):
     indent = TAB * depth
     res = OPEN_BRACKET + LINE_BREAK
     for k, v in some_dict.items():
@@ -111,12 +110,11 @@ def stylish(some_dict, depth=1):  # indent=TAB
         else:
             k = '  ' + k
         if isinstance(v, dict):
-            res += indent + k + ': ' + stylish(v, depth + 2) + '\n'
+            res += indent + k + COLON + stylish(v, depth + 2) + LINE_BREAK
         else:
-            print(k, f'"{v}"')
-            res += indent + k + ': ' + str(v) + '\n'
+            res += indent + k + COLON + str(v) + LINE_BREAK
     close_bracket_indent = TAB * (depth - 1)
-    res += close_bracket_indent + '}'
+    res += close_bracket_indent + CLOSE_BRACKET
     return res
 
 

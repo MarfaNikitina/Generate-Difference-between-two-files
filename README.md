@@ -1,7 +1,7 @@
 ### Hexlet tests and linter status:
  https://asciinema.org/a/yBAPhRWz7OhbEhS7o5cK6hYSW
  https://asciinema.org/a/WXXNKgX4YVlnhzqp6oueb7J0Z
-
+ https://asciinema.org/a/5rqshw59cuvOe9IIRnycAQfD
 
 <a href="https://codeclimate.com/github/MarfaNikitina/python-project-lvl2/test_coverage"><img src="https://api.codeclimate.com/v1/badges/a5b198ab73245bf35f42/test_coverage" /></a>
 <a href="https://codeclimate.com/github/MarfaNikitina/python-project-lvl2/maintainability"><img src="https://api.codeclimate.com/v1/badges/a5b198ab73245bf35f42/maintainability" /></a>
