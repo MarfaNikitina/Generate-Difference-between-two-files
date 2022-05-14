@@ -1,7 +1,8 @@
 # !/usr/bin/env python3
 import json
 import yaml
-
+from gendiff.formatters.stylish import stylish
+from gendiff.formatters.plain import plain
 
 def convert_value(value):
     if value is True:
@@ -63,37 +64,6 @@ def build_diff(dict1, dict2):
     return res_dict
 
 
-def build_diff345(dict1, dict2):
-    status_dict = create_status_dict(dict1, dict2)
-    res_dict = {}
-    for k in status_dict:
-        if status_dict[k] == 'unchanged':
-            res_dict[k] = convert_value(dict1[k])
-        elif status_dict[k] == 'changed':
-            if isinstance(dict1[k], dict) and isinstance(dict2[k], dict):
-                # res_dict['  ' + k] = build_diff(dict1[k], dict2[k])
-                res_dict[k] = build_diff(dict1[k], dict2[k])
-            else:
-                # res_dict['-' + k] = convert_value(dict1[k])
-                # res_dict['+' + k] = convert_value(dict2[k])
-                res_dict[k] = {
-                    '-': convert_value(dict1[k]),
-                    '+': convert_value(dict2[k]),
-                }
-        elif status_dict[k] == 'deleted':
-            # res_dict['-' + k] = convert_value(dict1[k])
-            res_dict[k] = {
-                '-': convert_value(dict1[k])
-            }
-        elif status_dict[k] == 'added':
-            # res_dict['+' + k] = convert_value(dict2[k])
-            res_dict[k] = {
-                '+': convert_value(dict2[k])
-            }
-    # print(res_dict.keys(), res_dict.values())
-    return res_dict
-
-
 OPEN_BRACKET = '{'
 CLOSE_BRACKET = '}'
 TAB = '  '
@@ -101,44 +71,13 @@ LINE_BREAK = '\n'
 COLON = ': '
 
 
-def stylish(some_dict, depth=1):
-    indent = TAB * depth
-    res = OPEN_BRACKET + LINE_BREAK
-    for k, v in some_dict.items():
-        if k[0] in ('+', '-'):
-            k = k[0] + ' ' + k[1:]
-        else:
-            k = '  ' + k
-        if isinstance(v, dict):
-            res += indent + k + COLON + stylish(v, depth + 2) + LINE_BREAK
-        else:
-            res += indent + k + COLON + str(v) + LINE_BREAK
-    close_bracket_indent = TAB * (depth - 1)
-    res += close_bracket_indent + CLOSE_BRACKET
-    return res
-
-
-def generate_diff(file1, file2):
+def generate_diff(file1, file2, format=stylish):
     dict1 = load_file_by_format(file1)
     dict2 = load_file_by_format(file2)
-    return stylish(build_diff(dict1, dict2))
-
-
-def generate_diff1(file1, file2):
-    dict1 = load_file_by_format(file1)
-    dict2 = load_file_by_format(file2)
-    sorted_keys_set = sorted(set(dict1.keys()).union(set(dict2.keys())))
-    result_diff = ''
-    for key in sorted_keys_set:
-        if key in dict1.keys() and key in dict2.keys():
-            if dict1[key] == dict2[key]:
-                result_diff += f'\n  {key}: {convert_value(dict1[key])}'
-            else:
-                result_diff += f'\n- {key}: {convert_value(dict1[key])}' \
-                               f'\n+ {key}: {convert_value(dict2[key])}'
-        elif key in dict1.keys() and key not in dict2.keys():
-            result_diff += f'\n- {key}: {convert_value(dict1[key])}'
-        elif key not in dict1.keys() and key in dict2.keys():
-            result_diff += f'\n+ {key}: {convert_value(dict2[key])}'
-    generated_diff = '{' + ''.join(result_diff) + '\n}'
-    return generated_diff
+    if format == stylish:
+        make_format = stylish()
+    if format == plain:
+        make_format = plain()
+    if format == json:
+        make_format = male_json_format()
+    return make_format(build_diff(dict1, dict2))

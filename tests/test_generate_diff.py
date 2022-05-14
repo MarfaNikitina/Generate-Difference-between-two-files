@@ -57,6 +57,11 @@ def resf1f2path():
     return open(f'tests/fixtures/filepath12_diff.txt', "r").read()
 
 
+@pytest.fixture
+def plain_diff():
+    return oprn(f'tests/fixtures/plain_diff.txt', "r").read()
+
+
 def test_generate_diff(f1_j, f2_j, resf1f2_j,
                        f1_y, f2_y, resf1f2_y,
                        f1path_j, f2path_j,
