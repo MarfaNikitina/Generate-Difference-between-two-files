@@ -59,15 +59,17 @@ def resf1f2path():
 
 @pytest.fixture
 def plain_diff():
-    return oprn(f'tests/fixtures/plain_diff.txt', "r").read()
+    return open(f'tests/fixtures/plain_diff.txt', "r").read()
 
 
 def test_generate_diff(f1_j, f2_j, resf1f2_j,
                        f1_y, f2_y, resf1f2_y,
                        f1path_j, f2path_j,
                        f1path_y, f2path_y,
-                       resf1f2path):
+                       resf1f2path, plain_diff):
     assert generate_diff(f1_j, f2_j) == resf1f2_j
     assert generate_diff(f1_y, f2_y) == resf1f2_y
     assert generate_diff(f1path_j, f2path_j) == resf1f2path
     assert generate_diff(f1path_y, f2path_y) == resf1f2path
+    assert generate_diff(f1path_j, f2path_j, plain) == plain_diff
+    assert generate_diff(f1path_y, f2path_y, plain) == plain_diff

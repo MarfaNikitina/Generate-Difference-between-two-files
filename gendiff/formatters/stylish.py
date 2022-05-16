@@ -1,5 +1,4 @@
 # !/usr/bin/env python3
-#from gendiff.generate_diff import convert_value
 
 
 OPEN_BRACKET = '{'
@@ -33,8 +32,8 @@ def build_diff(dict1, dict2):
     return res_dict
 
 
-def stylish(dict1, dict2, depth=1):
-    some_dict = build_diff(dict1, dict2)
+def stylishNOT(some_dict, depth=1):
+    #some_dict = build_diff(dict1, dict2)
     indent = TAB * depth
     res = OPEN_BRACKET + LINE_BREAK
     for k, v in some_dict.items():
