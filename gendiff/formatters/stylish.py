@@ -6,45 +6,60 @@ CLOSE_BRACKET = '}'
 TAB = '  '
 LINE_BREAK = '\n'
 COLON = ': '
-EMPTY = '  '
-PLUS = '+ '
-MINUS = '- '
+EMPTY = '    '
+PLUS = '  + '
+MINUS = '  - '
 
 
-def build_diff(dict1, dict2):
-    status_dict = create_status_dict(dict1, dict2)
-    res_dict = {}
-    for k in status_dict:
-        if status_dict[k] == 'unchanged':
-            res_dict[k] = convert_value(dict1[k])
-        elif status_dict[k] == 'changed':
-            if isinstance(dict1[k], dict) and isinstance(dict2[k], dict):
-                # res_dict['  ' + k] = build_diff(dict1[k], dict2[k])
-                res_dict[k] = build_diff(dict1[k], dict2[k])
-            else:
-                res_dict['-' + k] = convert_value(dict1[k])
-                res_dict['+' + k] = convert_value(dict2[k])
-        elif status_dict[k] == 'deleted':
-            res_dict['-' + k] = convert_value(dict1[k])
-        elif status_dict[k] == 'added':
-            res_dict['+' + k] = convert_value(dict2[k])
-    # print(res_dict.keys(), res_dict.values())
-    return res_dict
+def convert_value(value):
+    if value is True:
+        value = 'true'
+    elif value is False:
+        value = 'false'
+    elif value is None:
+        value = 'null'
+    return value
 
 
-def stylishNOT(some_dict, depth=1):
-    #some_dict = build_diff(dict1, dict2)
+def stylish(diff_dict, depth=0):
     indent = TAB * depth
     res = OPEN_BRACKET + LINE_BREAK
-    for k, v in some_dict.items():
-        if k[0] in ('+', '-'):
-            k = k[0] + ' ' + k[1:]
-        else:
-            k = '  ' + k
-        if isinstance(v, dict):
-            res += indent + k + COLON + stylish(v, depth + 2) + LINE_BREAK
-        else:
-            res += indent + k + COLON + str(v) + LINE_BREAK
+    for k, v in diff_dict.items():
+        if v['STATUS'] == 'HASCHILD':
+            res += indent + EMPTY + k + COLON + stylish(v['CHILDREN'], depth + 2) + LINE_BREAK
+        elif v['STATUS'] in ['UNCHANGED', 'ADDED', 'DELETED']:
+            res += indent + format_k(k, v) + COLON + format_value_to_str(convert_value(v['VALUE'])) + LINE_BREAK
+        elif v['STATUS'] == 'CHANGED':
+            res += indent + MINUS + k + COLON + format_value_to_str(convert_value(v['VALUE1'])) + LINE_BREAK
+            res += indent + PLUS + k + COLON + format_value_to_str(convert_value(v['VALUE2'])) + LINE_BREAK
     close_bracket_indent = TAB * (depth - 1)
     res += close_bracket_indent + CLOSE_BRACKET
     return res
+
+
+def format_value_to_str(value):
+    if not isinstance(value, dict):
+        return str(value)
+
+    def walk(node, depth=1):
+        result = ''
+        tab = '    '
+        for k, v in node.items():
+            if isinstance(v, dict):
+                result += tab * (depth + 2) + str(k) + ': {\n' + walk(v, depth + 1) + '\n'
+            else:
+                result += tab * (depth + 2) + str(k) + f': {v}' + '\n'
+        close_bracket_indent = tab * (depth + 1)
+        result += close_bracket_indent + '}'
+        return result
+    return '{\n' + walk(value, 0)
+
+
+def format_k(k, v):
+    if v['STATUS'] == 'UNCHANGED':
+        key = EMPTY + k
+    elif v['STATUS'] == 'DELETED':
+        key = MINUS + k
+    elif v['STATUS'] == 'ADDED':
+        key = PLUS + k
+    return key

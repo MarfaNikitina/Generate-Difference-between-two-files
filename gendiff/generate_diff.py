@@ -2,18 +2,8 @@
 import itertools
 import json
 import yaml
-#from gendiff.formatters.stylish import stylish
+from gendiff.formatters.stylish import stylish
 #from gendiff.formatters.plain import plain
-
-
-def convert_value(value):
-    if value is True:
-        value = 'true'
-    elif value is False:
-        value = 'false'
-    elif value is None:
-        value = 'null'
-    return value
 
 
 def load_file_by_format(file):
@@ -66,68 +56,11 @@ def make_status_value_for_key(dict1, dict2, key):
         }
 
 
-OPEN_BRACKET = '{'
-CLOSE_BRACKET = '}'
-TAB = '  '
-LINE_BREAK = '\n'
-COLON = ': '
-EMPTY = '    '
-PLUS = '  + '
-MINUS = '  - '
-
-
-def stylish(diff_dict, depth=0):
-    # some_dict = calc_diff(dict1, dict2)
-    print(diff_dict)
-    indent = TAB * depth
-    res = OPEN_BRACKET + LINE_BREAK
-    for k, v in diff_dict.items():
-        if v['STATUS'] == 'HASCHILD':
-            res += indent + EMPTY + k + COLON + stylish(v['CHILDREN'], depth + 2) + LINE_BREAK
-        #else:
-            #if isinstance(v['VALUE'], dict):
-                #res += indent + k + COLON + make_dict_to_string(v['VALUE']) + LINE_BREAK
-        elif isinstance(v['VALUE'], dict):
-            res += indent + format_k(diff_dict, k) + COLON + make_dict_to_string(v['VALUE']) + LINE_BREAK
-        elif v['STATUS'] == 'CHANGED':
-            res += indent + MINUS + k + COLON + str(v['VALUE1']) + LINE_BREAK
-            res += indent + PLUS + k + COLON + str(v['VALUE2']) + LINE_BREAK
-        else:
-            res += indent + format_k(diff_dict, k) + COLON + str(v['VALUE']) + LINE_BREAK
-    close_bracket_indent = TAB * (depth - 1)
-    res += close_bracket_indent + CLOSE_BRACKET
-    return res
-
-
-def make_dict_to_string(some_dict, depth=1):
-    result = ''
-    TAB = '    '
-    for k, v in some_dict.items():
-        if isinstance(v, dict):
-            result += TAB * (depth + 1) + str(k) + ': {\n' + make_dict_to_string(v, depth + 1) + '\n'
-        else:
-            result += TAB * (depth + 1) + str(k) + f': {v}' + '\n'
-    close_bracket_indent = TAB * depth
-    result += close_bracket_indent + '}'
-    return '{\n' + result
-
-
-def format_k(some_dict, key):
-    for k, v in some_dict.items():
-        if v['STATUS'] == 'UNCHANGED':
-            key = EMPTY + k
-        elif v['STATUS'] == 'DELETED':
-            key = MINUS + k
-        elif v['STATUS'] == 'ADDED':
-            key = PLUS + k
-    return key
-
-
 def generate_diff(file1, file2, format_name=stylish):
     dict1 = load_file_by_format(file1)
     dict2 = load_file_by_format(file2)
-    if format_name == stylish:
-        make_format = stylish()
+    #if format_name == stylish:
+        #make_format = stylish()
     #if format_name == plain:
         #make_format = plain()
     #if format_name == json:
