@@ -32,7 +32,7 @@ def stylish(diff_dict, depth=0):
         elif v['STATUS'] == 'CHANGED':
             res += indent + MINUS + k + COLON + format_value_to_str(convert_value(v['VALUE1'])) + LINE_BREAK
             res += indent + PLUS + k + COLON + format_value_to_str(convert_value(v['VALUE2'])) + LINE_BREAK
-    close_bracket_indent = TAB * (depth - 1)
+    close_bracket_indent = TAB * (depth)
     res += close_bracket_indent + CLOSE_BRACKET
     return res
 
