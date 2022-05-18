@@ -1,21 +1,5 @@
 # !/usr/bin/env python3
-
-def update_value(value):
-    if not isinstance(value, str):
-        value = '[complex value]'
-    else:
-        value
-    return value
-
-
-def get_name(node, prefix=''):
-    complex_name = f'{prefix}.{node}'
-    if not isinstance(node, dict):
-        return node
-    else:
-        for k in node.keys():
-            complex_name += get_name(k, complex_name)
-
+from gendiff.formatters.stylish import convert_value
 
 
 
@@ -28,11 +12,12 @@ def update_value(value):
 
 
 def get_name(node):
-    name = []
-    if isinstance(node, dict):
+    #if not isinstance(node, dict):
+        return node
+
         for k, v in node.items():
-            if isinstance(k, dict):
-                name.append(get_name(node[k]))
+            if isinstance(v, dict):
+                name.append(get_name(v))
             else:
                 name.append(k)
     else:
@@ -42,28 +27,26 @@ def get_name(node):
 
 
 def format_value(value):
-    exceptions = [ '[complex value]', 'null', 'true', 'false']
+    exceptions = ['[complex value]', 'null', 'true', 'false']
     if value in exceptions:
         return value
     else:
         return "'" + str(value) + "'"
 
 
-def plain(dict1, dict2):
-    status_dict = create_status_dict(dict1, dict2)
+def make_plain_format(diff_dict):
     result_list = []
-    for k in status_dict:
+    for k, v in diff_dict:
         key = get_name(k)
-        if status_dict[k] == 'added':
+        if v['STATUS'] == 'HASCHILD':
+            result_list.append(make_plain_format(v['CHILDREN'])
+        elif v['STATUS'] == 'ADDED':
             result_list.append(
-                f"Property '{key}' was added with value: " + format_value(convert_value(update_value(dict2[k])))
+                f"Property '{k}' was added with value: " + format_value(convert_value(update_value(v['VALUE'])))
             )
-        elif status_dict[k] == 'deleted':
-            result_list.append(f"Property '{key}' was removed")
-        elif status_dict[k] == 'changed':
-            if isinstance(dict1[k], dict) and isinstance(dict2[k], dict):
-                result_list.append(plain(dict1[k], dict2[k]))
-            else:
+        elif v['STATUS'] == 'DELETED':
+            result_list.append(f"Property '{k}' was removed")
+        elif v['STATUS'] == 'CHANGED':
                 result_list.append(
                     f"Propetry '{k}' was updated. From " + format_value(convert_value(update_value(dict1[k]))) +
                     ' to ' + format_value(convert_value(update_value(dict2[k])))
