@@ -34,27 +34,27 @@ def resf1f2_y():
 
 
 @pytest.fixture
-def f1path_j():
-    return 'filepath1.json'
+def f1tree_j():
+    return 'file1tree.json'
 
 
 @pytest.fixture
-def f2path_j():
-    return 'filepath2.json'
+def f2tree_j():
+    return 'file2tree.json'
 
 @pytest.fixture
-def f1path_y():
-    return 'filepath1.yml'
-
-
-@pytest.fixture
-def f2path_y():
-    return 'filepath2.yml'
+def f1tree_y():
+    return 'file1tree.yml'
 
 
 @pytest.fixture
-def resf1f2path():
-    return open(f'tests/fixtures/filepath12_diff.txt', "r").read()
+def f2tree_y():
+    return 'file2tree.yml'
+
+
+@pytest.fixture
+def resf1f2tree():
+    return open(f'tests/fixtures/f12tree_diff.txt', "r").read()
 
 
 @pytest.fixture
@@ -64,12 +64,12 @@ def plain_diff():
 
 def test_generate_diff(f1_j, f2_j, resf1f2_j,
                        f1_y, f2_y, resf1f2_y,
-                       f1path_j, f2path_j,
-                       f1path_y, f2path_y,
-                       resf1f2path, plain_diff):
+                       f1tree_j, f2tree_j,
+                       f1tree_y, f2tree_y,
+                       resf1f2tree, plain_diff):
     assert generate_diff(f1_j, f2_j) == resf1f2_j
     assert generate_diff(f1_y, f2_y) == resf1f2_y
-    assert generate_diff(f1path_j, f2path_j) == resf1f2path
-    assert generate_diff(f1path_y, f2path_y) == resf1f2path
-    assert generate_diff(f1path_j, f2path_j, plain) == plain_diff
-    assert generate_diff(f1path_y, f2path_y, plain) == plain_diff
+    assert generate_diff(f1tree_j, f2tree_j) == resf1f2tree
+    assert generate_diff(f1tree_y, f2tree_y) == resf1f2tree
+    assert generate_diff(f1tree_j, f2tree_j, format='plain') == plain_diff
+    assert generate_diff(f1tree_y, f2tree_y, format='plain') == plain_diff

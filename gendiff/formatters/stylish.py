@@ -28,16 +28,16 @@ def stylish(diff_dict, depth=0):
         if v['STATUS'] == 'HASCHILD':
             res += indent + EMPTY + k + COLON + stylish(v['CHILDREN'], depth + 2) + LINE_BREAK
         elif v['STATUS'] in ['UNCHANGED', 'ADDED', 'DELETED']:
-            res += indent + format_k(k, v) + COLON + format_value_to_str(convert_value(v['VALUE'])) + LINE_BREAK
+            res += indent + format_k(k, v) + COLON + format_value_to_str(convert_value(v['VALUE']), indent * (depth - 1)) + LINE_BREAK
         elif v['STATUS'] == 'CHANGED':
-            res += indent + MINUS + k + COLON + format_value_to_str(convert_value(v['VALUE1'])) + LINE_BREAK
-            res += indent + PLUS + k + COLON + format_value_to_str(convert_value(v['VALUE2'])) + LINE_BREAK
+            res += indent + MINUS + k + COLON + format_value_to_str(convert_value(v['VALUE1']), indent * (depth - 1)) + LINE_BREAK
+            res += indent + PLUS + k + COLON + format_value_to_str(convert_value(v['VALUE2']), indent * (depth - 1)) + LINE_BREAK
     close_bracket_indent = TAB * depth
     res += close_bracket_indent + CLOSE_BRACKET
     return res
 
 
-def format_value_to_str(value):
+def format_value_to_str(value, indent1=''):
     if not isinstance(value, dict):
         return str(value)
 
@@ -46,10 +46,10 @@ def format_value_to_str(value):
         tab = '    '
         for k, v in node.items():
             if isinstance(v, dict):
-                result += tab * (depth + 2) + str(k) + ': {\n' + walk(v, depth + 1) + '\n'
+                result += indent1 + tab * (depth + 2) + str(k) + ': {\n' + walk(v, depth + 1) + '\n'
             else:
-                result += tab * (depth + 2) + str(k) + f': {v}' + '\n'
-        close_bracket_indent = tab * (depth + 1)
+                result += indent1 + tab * (depth + 2) + str(k) + f': {v}' + '\n'
+        close_bracket_indent = indent1 + tab * (depth + 1)
         result += close_bracket_indent + '}'
         return result
     return '{\n' + walk(value, 0)
@@ -57,9 +57,8 @@ def format_value_to_str(value):
 
 def format_k(k, v):
     if v['STATUS'] == 'UNCHANGED':
-        key = EMPTY + k
+        return EMPTY + k
     elif v['STATUS'] == 'DELETED':
-        key = MINUS + k
+        return MINUS + k
     elif v['STATUS'] == 'ADDED':
-        key = PLUS + k
-    return key
+        return PLUS + k

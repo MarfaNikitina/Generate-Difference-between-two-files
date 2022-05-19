@@ -1,0 +1,98 @@
+{
+    "common": {
+        "STATUS": "HASCHILD",
+        "CHILDREN": {
+            "follow": {
+                "STATUS": "ADDED",
+                "VALUE": false
+            },
+            "setting1": {
+                "STATUS": "UNCHANGED",
+                "VALUE": "Value 1"
+            },
+            "setting2": {
+                "STATUS": "DELETED",
+                "VALUE": 200
+            },
+            "setting3": {
+                "STATUS": "CHANGED",
+                "VALUE1": true,
+                "VALUE2": null
+            },
+            "setting4": {
+                "STATUS": "ADDED",
+                "VALUE": "blah blah"
+            },
+            "setting5": {
+                "STATUS": "ADDED",
+                "VALUE": {
+                    "key5": "value5"
+                }
+            },
+            "setting6": {
+                "STATUS": "HASCHILD",
+                "CHILDREN": {
+                    "doge": {
+                        "STATUS": "HASCHILD",
+                        "CHILDREN": {
+                            "wow": {
+                                "STATUS": "CHANGED",
+                                "VALUE1": "",
+                                "VALUE2": "so much"
+                            }
+                        }
+                    },
+                    "key": {
+                        "STATUS": "UNCHANGED",
+                        "VALUE": "value"
+                    },
+                    "ops": {
+                        "STATUS": "ADDED",
+                        "VALUE": "vops"
+                    }
+                }
+            }
+        }
+    },
+    "group1": {
+        "STATUS": "HASCHILD",
+        "CHILDREN": {
+            "baz": {
+                "STATUS": "CHANGED",
+                "VALUE1": "bas",
+                "VALUE2": "bars"
+            },
+            "foo": {
+                "STATUS": "UNCHANGED",
+                "VALUE": "bar"
+            },
+            "nest": {
+                "STATUS": "CHANGED",
+                "VALUE1": {
+                    "key": "value"
+                },
+                "VALUE2": "str"
+            }
+        }
+    },
+    "group2": {
+        "STATUS": "DELETED",
+        "VALUE": {
+            "abc": 12345,
+            "deep": {
+                "id": 45
+            }
+        }
+    },
+    "group3": {
+        "STATUS": "ADDED",
+        "VALUE": {
+            "deep": {
+                "id": {
+                    "number": 45
+                }
+            },
+            "fee": 100500
+        }
+    }
+}
