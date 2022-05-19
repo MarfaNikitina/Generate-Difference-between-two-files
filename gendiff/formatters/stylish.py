@@ -51,9 +51,9 @@ def format_value_to_str(some_value, indent1=''):
         current_ind = indent1 + tab * (depth + 2)
         for k, v in node.items():
             if isinstance(v, dict):
-                result += current_ind + str(k) + ': {\n' + walk(v, depth + 1) + '\n'
+                result += current_ind + k + ': {\n' + walk(v, depth + 1) + '\n'
             else:
-                result += current_ind + str(k) + f': {v}' + '\n'
+                result += current_ind + k + f': {v}' + '\n'
         close_bracket_indent = indent1 + tab * (depth + 1)
         result += close_bracket_indent + '}'
         return result
