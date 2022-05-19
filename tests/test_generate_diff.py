@@ -62,14 +62,22 @@ def plain_diff():
     return open(f'tests/fixtures/plain_diff.txt', "r").read()
 
 
+@pytest.fixture
+def json_diff():
+    return open(f'tests/fixtures/jsondiff.txt', "r").read()
+
+
 def test_generate_diff(f1_j, f2_j, resf1f2_j,
                        f1_y, f2_y, resf1f2_y,
                        f1tree_j, f2tree_j,
                        f1tree_y, f2tree_y,
-                       resf1f2tree, plain_diff):
+                       resf1f2tree, plain_diff,
+                       json_diff):
     assert generate_diff(f1_j, f2_j) == resf1f2_j
     assert generate_diff(f1_y, f2_y) == resf1f2_y
     assert generate_diff(f1tree_j, f2tree_j) == resf1f2tree
     assert generate_diff(f1tree_y, f2tree_y) == resf1f2tree
     assert generate_diff(f1tree_j, f2tree_j, format='plain') == plain_diff
     assert generate_diff(f1tree_y, f2tree_y, format='plain') == plain_diff
+    assert generate_diff(f1tree_y, f2tree_y, format='json') == json_diff
+    assert generate_diff(f1tree_j, f2tree_j, format='json') == json_diff

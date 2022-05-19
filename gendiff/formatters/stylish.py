@@ -5,10 +5,10 @@ OPEN_BRACKET = '{'
 CLOSE_BRACKET = '}'
 TAB = '  '
 LINE_BREAK = '\n'
-COLON = ': '
 EMPTY = '    '
 PLUS = '  + '
 MINUS = '  - '
+COLON = ': '
 
 
 def convert_value(value):
@@ -26,15 +26,16 @@ def stylish(diff_dict, depth=0):
     res = OPEN_BRACKET + LINE_BREAK
     for k, v in diff_dict.items():
         if v['STATUS'] == 'HASCHILD':
-            res += f"{indent}{EMPTY}{k}:  {stylish(v['CHILDREN'], depth + 2)}{LINE_BREAK}"
+            res += f"{indent}{EMPTY}{k}: " \
+                   f"{stylish(v['CHILDREN'], depth + 2)}{LINE_BREAK}"
         elif v['STATUS'] in ['UNCHANGED', 'ADDED', 'DELETED']:
-            res += f"{indent}{format_k(k, v)}: " \
-                   f"{format_value_to_str(v['VALUE'], indent * (depth - 1))}{LINE_BREAK}"
+            res += f"{indent}{format_k(k, v)}: "\
+                   f"{format_value_to_str(v['VALUE'], indent * (depth - 1))}\n"
         elif v['STATUS'] == 'CHANGED':
             res += f"{indent}{MINUS}{k}: " \
-                   f"{format_value_to_str(v['VALUE1'], indent * (depth - 1))}{LINE_BREAK}"
-            res += f"{indent}{MINUS}{k}: " \
-                   f"{format_value_to_str(v['VALUE2'], indent * (depth - 1))}{LINE_BREAK}"
+                   f"{format_value_to_str(v['VALUE1'], indent * (depth - 1))}\n"
+            res += f"{indent}{PLUS}{k}: " \
+                   f"{format_value_to_str(v['VALUE2'], indent * (depth - 1))}\n"
     close_bracket_indent = TAB * depth
     res += close_bracket_indent + CLOSE_BRACKET
     return res
@@ -50,7 +51,7 @@ def format_value_to_str(some_value, indent1=''):
         tab = '    '
         for k, v in node.items():
             if isinstance(v, dict):
-                result += indent1 + tab * (depth + 2) + str(k) + ': {\n' + walk(v, depth + 1) + '\n'
+                result += indent1 + tab * (depth + 2) + str(k) + COLON + '{' + '\n' + walk(v, depth + 1) + '\n'
             else:
                 result += indent1 + tab * (depth + 2) + str(k) + f': {v}' + '\n'
         close_bracket_indent = indent1 + tab * (depth + 1)

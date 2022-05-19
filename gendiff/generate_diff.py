@@ -1,5 +1,4 @@
 # !/usr/bin/env python3
-import itertools
 import json
 import yaml
 from gendiff.formatters.stylish import stylish
