@@ -1,0 +1,23 @@
+{
+    "follow": {
+        "STATUS": "DELETED",
+        "VALUE": false
+    },
+    "host": {
+        "STATUS": "UNCHANGED",
+        "VALUE": "hexlet.io"
+    },
+    "proxy": {
+        "STATUS": "DELETED",
+        "VALUE": "123.234.53.22"
+    },
+    "timeout": {
+        "STATUS": "CHANGED",
+        "VALUE1": 50,
+        "VALUE2": 20
+    },
+    "verbose": {
+        "STATUS": "ADDED",
+        "VALUE": true
+    }
+}
