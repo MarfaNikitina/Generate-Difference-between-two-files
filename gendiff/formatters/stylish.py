@@ -26,18 +26,22 @@ def stylish(diff_dict, depth=0):
     res = OPEN_BRACKET + LINE_BREAK
     for k, v in diff_dict.items():
         if v['STATUS'] == 'HASCHILD':
-            res += indent + EMPTY + k + COLON + stylish(v['CHILDREN'], depth + 2) + LINE_BREAK
+            res += f"{indent}{EMPTY}{k}:  {stylish(v['CHILDREN'], depth + 2)}{LINE_BREAK}"
         elif v['STATUS'] in ['UNCHANGED', 'ADDED', 'DELETED']:
-            res += indent + format_k(k, v) + COLON + format_value_to_str(convert_value(v['VALUE']), indent * (depth - 1)) + LINE_BREAK
+            res += f"{indent}{format_k(k, v)}: " \
+                   f"{format_value_to_str(v['VALUE'], indent * (depth - 1))}{LINE_BREAK}"
         elif v['STATUS'] == 'CHANGED':
-            res += indent + MINUS + k + COLON + format_value_to_str(convert_value(v['VALUE1']), indent * (depth - 1)) + LINE_BREAK
-            res += indent + PLUS + k + COLON + format_value_to_str(convert_value(v['VALUE2']), indent * (depth - 1)) + LINE_BREAK
+            res += f"{indent}{MINUS}{k}: " \
+                   f"{format_value_to_str(v['VALUE1'], indent * (depth - 1))}{LINE_BREAK}"
+            res += f"{indent}{MINUS}{k}: " \
+                   f"{format_value_to_str(v['VALUE2'], indent * (depth - 1))}{LINE_BREAK}"
     close_bracket_indent = TAB * depth
     res += close_bracket_indent + CLOSE_BRACKET
     return res
 
 
-def format_value_to_str(value, indent1=''):
+def format_value_to_str(some_value, indent1=''):
+    value = convert_value(some_value)
     if not isinstance(value, dict):
         return str(value)
 

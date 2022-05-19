@@ -45,13 +45,14 @@ def make_plain_format(diff_dict):
             # name = get_name(k, v)
             result_list.append(make_plain_format(v['CHILDREN']))
         elif v['STATUS'] == 'ADDED':
-            result_list.append(f"Property '{key}' was added with value: " + format_value(v['VALUE']))
+            result_list.append(f"Property '{key}' was added"
+                               f" with value: {format_value(v['VALUE'])}")
         elif v['STATUS'] == 'DELETED':
             result_list.append(f"Property '{key}' was removed")
         elif v['STATUS'] == 'CHANGED':
             result_list.append(
-                f"Property '{key}' was updated. From " + format_value(v['VALUE1']) +
-                ' to ' + format_value(v['VALUE2'])
+                f"Property '{key}' was updated. From"
+                f" {format_value(v['VALUE1'])} to {format_value(v['VALUE2'])}"
             )
         elif v['STATUS'] == 'UNCHANGED':
             result_list = result_list
