@@ -12,24 +12,23 @@
 1)stylish (форматтер по умолчанию)
 
 Пример работы форматтера:
+
 [![asciicast](https://asciinema.org/a/Q4dNcTWsPZr5IcHt8vGJZgI0w.svg)](https://asciinema.org/a/Q4dNcTWsPZr5IcHt8vGJZgI0w)
- https://asciinema.org/a/Q4dNcTWsPZr5IcHt8vGJZgI0w
 
 
 2)plain(текстовый вывод с описанием различий)
 
+Пример работы форматтера:
+
 [![asciicast](https://asciinema.org/a/ofHXQfLBwaNRDPrIF9Oh29DF3.svg)](https://asciinema.org/a/ofHXQfLBwaNRDPrIF9Oh29DF3)
 
-Пример работы форматтера:
-https://asciinema.org/a/ofHXQfLBwaNRDPrIF9Oh29DF3
 
 3)json(выводит отличия в json-подобном виде)
 
-[![asciicast](https://asciinema.org/a/Jk5yYuz3zThAhNG3N7aQ3s6vu.svg)](https://asciinema.org/a/Jk5yYuz3zThAhNG3N7aQ3s6vu)
-
 Пример работы форматтера:
 
- https://asciinema.org/a/Jk5yYuz3zThAhNG3N7aQ3s6vu
+[![asciicast](https://asciinema.org/a/Jk5yYuz3zThAhNG3N7aQ3s6vu.svg)](https://asciinema.org/a/Jk5yYuz3zThAhNG3N7aQ3s6vu)
+
 
 
 
