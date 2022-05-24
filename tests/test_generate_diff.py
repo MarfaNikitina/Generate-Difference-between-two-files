@@ -81,9 +81,9 @@ def test_generate_diff(f1_j, f2_j, resf1f2_j,
     assert generate_diff(f1_y, f2_y) == resf1f2_y
     assert generate_diff(f1tree_j, f2tree_j) == resf1f2tree
     assert generate_diff(f1tree_y, f2tree_y) == resf1f2tree
-    assert generate_diff(f1tree_j, f2tree_j, format='plain') == plain_diff
-    assert generate_diff(f1tree_y, f2tree_y, format='plain') == plain_diff
-    assert generate_diff(f1tree_y, f2tree_y, format='json') == json_tree_diff
-    assert generate_diff(f1tree_j, f2tree_j, format='json') == json_tree_diff
-    assert generate_diff(f1_j, f2_j, format='json') == f1f2_json_diff
-    assert generate_diff(f1_y, f2_y, format='json') == f1f2_json_diff
+    assert generate_diff(f1tree_j, f2tree_j, format_name='plain') == plain_diff
+    assert generate_diff(f1tree_y, f2tree_y, format_name='plain') == plain_diff
+    assert generate_diff(f1tree_y, f2tree_y, format_name='json') == json_tree_diff
+    assert generate_diff(f1tree_j, f2tree_j, format_name='json') == json_tree_diff
+    assert generate_diff(f1_j, f2_j, format_name='json') == f1f2_json_diff
+    assert generate_diff(f1_y, f2_y, format_name='json') == f1f2_json_diff

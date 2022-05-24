@@ -11,21 +11,6 @@ def update_value(value):
     return value
 
 
-def get_name(k, v):
-    name = ''
-    if v['STATUS'] in ['ADDED', 'DELETED', 'CHANGED', 'UNCHANGED']:
-        return name + k
-
-    child = v['CHILDREN']
-    parent = k
-    list_ = []
-    for k, v in child.items():
-        list_.append(parent)
-        list_.append(get_name(k, v))
-        name += '.'.join(list_)
-        return name
-
-
 def format_value(value):
     new_value = convert_value(update_value(value))
     exceptions = ['[complex value]', 'null', 'true', 'false']
@@ -35,26 +20,39 @@ def format_value(value):
         return "'" + new_value + "'"
 
 
+def create_end_by_status(v):
+    if v['STATUS'] == 'ADDED':
+        return f"added with value: {format_value(v['VALUE'])}"
+    elif v['STATUS'] == 'DELETED':
+        return "removed"
+    elif v['STATUS'] == 'CHANGED':
+        return f"updated. From {format_value(v['VALUE1'])} " \
+                     f"to {format_value(v['VALUE2'])}"
+
+
 def make_plain_format(diff_dict):
     result_list = []
-    # key = get_name({k: v})
     for k, v in diff_dict.items():
-        key = get_name(k, v)
-        print(key)
-        if v['STATUS'] == 'HASCHILD':
-            # name = get_name(k, v)
-            result_list.append(make_plain_format(v['CHILDREN']))
-        elif v['STATUS'] == 'ADDED':
-            result_list.append(f"Property '{key}' was added"
-                               f" with value: {format_value(v['VALUE'])}")
-        elif v['STATUS'] == 'DELETED':
-            result_list.append(f"Property '{key}' was removed")
-        elif v['STATUS'] == 'CHANGED':
-            result_list.append(
-                f"Property '{key}' was updated. From"
-                f" {format_value(v['VALUE1'])} to {format_value(v['VALUE2'])}"
-            )
+        if v['STATUS'] in ['CHANGED', 'ADDED', 'DELETED']:
+            result_list.append(f'Property \'{k}\' was {create_end_by_status(v)}')
         elif v['STATUS'] == 'UNCHANGED':
             result_list = result_list
+        elif v['STATUS'] == 'HASCHILD':
+            result_list.append(plain_for_child(v, k))
         result = itertools.chain(result_list)
     return '\n'.join(result)
+
+
+def plain_for_child(v, k):
+    parent = k
+    child = v['CHILDREN']
+    result_list = []
+    for key, val in child.items():
+        if val['STATUS'] in ['CHANGED', 'ADDED', 'DELETED']:
+            result_list.append(f"Property '{parent}.{key}' was {create_end_by_status(val)}")
+        elif val['STATUS'] == 'UNCHANGED':
+            result_list = result_list
+        elif val['STATUS'] == 'HASCHILD':
+            new_parent = f'{parent}.{key}'
+            result_list.append(plain_for_child(val, new_parent))
+    return '\n'.join(result_list)
