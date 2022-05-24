@@ -17,7 +17,7 @@ def format_value(value):
     if new_value in exceptions:
         return new_value
     else:
-        return "'" + new_value + "'"
+        return f'"{new_value}"'      #"'" + new_value + "'"
 
 
 def create_end_by_status(v):
