@@ -42,6 +42,7 @@ def f1tree_j():
 def f2tree_j():
     return 'file2tree.json'
 
+
 @pytest.fixture
 def f1tree_y():
     return 'file1tree.yml'
