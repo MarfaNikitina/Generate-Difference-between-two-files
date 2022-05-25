@@ -5,9 +5,7 @@ from gendiff.formatters.stylish import convert_value
 
 def update_value(value):
     if isinstance(value, dict):
-        value = '[complex value]'
-    else:
-        value
+        return '[complex value]'
     return value
 
 
@@ -17,7 +15,7 @@ def format_value(value):
     if new_value in exceptions:
         return new_value
     else:
-        return f'"{new_value}"'
+        return f"'{new_value}'"
 
 
 def create_end_by_status(v):
@@ -32,6 +30,7 @@ def create_end_by_status(v):
 
 def make_plain_format(diff_dict):
     result_list = []
+    # result = []
     for k, v in diff_dict.items():
         if v['STATUS'] in ['CHANGED', 'ADDED', 'DELETED']:
             result_list.append(f'Property \'{k}\''
@@ -40,7 +39,7 @@ def make_plain_format(diff_dict):
             result_list = result_list
         elif v['STATUS'] == 'HASCHILD':
             result_list.append(plain_for_child(v, k))
-        result = itertools.chain(result_list)
+    result = itertools.chain(result_list)
     return '\n'.join(result)
 
 
