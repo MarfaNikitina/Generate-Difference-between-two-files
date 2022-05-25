@@ -33,7 +33,5 @@
 [![asciicast](https://asciinema.org/a/Jk5yYuz3zThAhNG3N7aQ3s6vu.svg)](https://asciinema.org/a/Jk5yYuz3zThAhNG3N7aQ3s6vu)
 
 
-
-
- https://asciinema.org/a/yBAPhRWz7OhbEhS7o5cK6hYSW
- https://asciinema.org/a/WXXNKgX4YVlnhzqp6oueb7J0Z
+Пример вывода справки -h:
+[![asciicast](https://asciinema.org/a/LwfEi5O9MP7I4qOrOTZVBxBQd.svg)](https://asciinema.org/a/LwfEi5O9MP7I4qOrOTZVBxBQd)
