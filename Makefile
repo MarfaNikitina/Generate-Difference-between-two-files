@@ -20,5 +20,4 @@ make test-coverage:
 	poetry run pytest --cov
 
 
-
 .PHONY: install test lint selfcheck check build
