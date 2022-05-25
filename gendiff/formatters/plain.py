@@ -14,6 +14,8 @@ def format_value(value):
     exceptions = ['[complex value]', 'null', 'true', 'false']
     if new_value in exceptions:
         return new_value
+    elif isinstance(new_value, int):
+        return new_value
     else:
         return f"'{new_value}'"
 
