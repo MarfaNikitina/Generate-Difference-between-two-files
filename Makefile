@@ -17,7 +17,8 @@ make check:
 	poetry run pytest
 
 make test-coverage:
-	poetry run pytest --cov
+	poetry run pytest --cov=hexlet_python_package --cov-report xml
+
 
 
 .PHONY: install test lint selfcheck check build
