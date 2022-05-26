@@ -10,12 +10,12 @@ FIXTURES_PATH = f"{TESTS_DIR}/fixtures"
 
 @pytest.fixture
 def f1_j():
-    return 'file1.json'
+    return f"{FIXTURES_PATH}/file1.json"
 
 
 @pytest.fixture
 def f2_j():
-    return 'file2.json'
+    return f"{FIXTURES_PATH}/file2.json"
 
 
 @pytest.fixture
@@ -25,12 +25,12 @@ def resf1f2_j():
 
 @pytest.fixture
 def f1_y():
-    return 'file1.yml'
+    return f"{FIXTURES_PATH}/file1.yml"
 
 
 @pytest.fixture
 def f2_y():
-    return 'file2.yml'
+    return f"{FIXTURES_PATH}/file1.yml"
 
 
 @pytest.fixture
