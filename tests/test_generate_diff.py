@@ -11,9 +11,6 @@ FIXTURES_PATH = f"{TESTS_DIR}/fixtures"
 @pytest.fixture
 def f1_j():
     return f"{FIXTURES_PATH}/file1.json"
-#os.path.join(os.path.dirname(__file__),'fixtures', 'file1.json')
-
-#f"{FIXTURES_PATH}/file1.json"
 
 
 @pytest.fixture
