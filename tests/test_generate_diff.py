@@ -20,7 +20,7 @@ def f2_j():
 
 @pytest.fixture
 def resf1f2_j():
-    return open(f'tests/fixtures/file1file2_json_diff.txt', "r").read()
+    return open(f"{FIXTURES_PATH}/file1file2_json_diff.txt", "r").read()
 
 
 @pytest.fixture
@@ -35,52 +35,52 @@ def f2_y():
 
 @pytest.fixture
 def resf1f2_y():
-    return open(f'tests/fixtures/f1f2_yml_diff.txt', "r").read()
+    return open(f"{FIXTURES_PATH}/f1f2_yml_diff.txt", "r").read()
 
 
 @pytest.fixture
 def f1tree_j():
-    return 'file1tree.json'
+    return f"{FIXTURES_PATH}/file1tree.json"
 
 
 @pytest.fixture
 def f2tree_j():
-    return 'file2tree.json'
+    return f"{FIXTURES_PATH}/file1tree.json"
 
 
 @pytest.fixture
 def f1tree_y():
-    return 'file1tree.yml'
+    return f"{FIXTURES_PATH}/file1tree.yml"
 
 
 @pytest.fixture
 def f2tree_y():
-    return 'file2tree.yml'
+    return f"{FIXTURES_PATH}/file2tree.yml"
 
 
 @pytest.fixture
 def resf1f2tree():
-    return open(f'tests/fixtures/f12tree_diff.txt', "r").read()
+    return open(f"{FIXTURES_PATH}/f12tree_diff.txt", "r").read()
 
 
 @pytest.fixture
 def plain_diff():
-    return open(f'tests/fixtures/plain_diff.txt', "r").read()
+    return open(f"{FIXTURES_PATH}/plain_diff.txt", "r").read()
 
 
 @pytest.fixture
 def json_tree_diff():
-    return open(f'tests/fixtures/jsondiff.txt', "r").read()
+    return open(f"{FIXTURES_PATH}/jsondiff.txt", "r").read()
 
 
 @pytest.fixture
 def f1f2_json_diff():
-    return open(f'tests/fixtures/f1f2json_diff.txt', "r").read()
+    return open(f"{FIXTURES_PATH}/f1f2json_diff.txt", "r").read()
 
 
 @pytest.fixture
 def f1f2_plaindiff():
-    return open(f'tests/fixtures/f1f2plain_diff.txt', "r").read()
+    return open(f"{FIXTURES_PATH}/f1f2plain_diff.txt", "r").read()
 
 
 def test_generate_diff(f1_j, f2_j, resf1f2_j,
