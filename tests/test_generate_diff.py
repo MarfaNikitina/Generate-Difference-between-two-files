@@ -10,18 +10,15 @@ FIXTURES_PATH = f"{TESTS_DIR}/fixtures"
 
 @pytest.fixture
 def f1_j():
-    return os.path.join(os.path.dirname(__file__),
-                        'fixtures',
-                        'file1.json')
+    return f"{FIXTURES_PATH}/file1.json"
+#os.path.join(os.path.dirname(__file__),'fixtures', 'file1.json')
 
 #f"{FIXTURES_PATH}/file1.json"
 
 
 @pytest.fixture
 def f2_j():
-    return os.path.join(os.path.dirname(__file__),
-                        'fixtures',
-                        'file2.json')
+    return f"{FIXTURES_PATH}/file2.json"
 
 
 @pytest.fixture
@@ -31,16 +28,12 @@ def resf1f2_j():
 
 @pytest.fixture
 def f1_y():
-    return os.path.join(os.path.dirname(__file__),
-                        'fixtures',
-                        'file1.yml')
+    return f"{FIXTURES_PATH}/file1.yml"
 
 
 @pytest.fixture
 def f2_y():
-    return os.path.join(os.path.dirname(__file__),
-                        'fixtures',
-                        'file2.yml')
+    return f"{FIXTURES_PATH}/file2.yml"
 
 
 @pytest.fixture
@@ -50,30 +43,22 @@ def resf1f2_y():
 
 @pytest.fixture
 def f1tree_j():
-    return os.path.join(os.path.dirname(__file__),
-                        'fixtures',
-                        'file1tree.json')
+    return f"{FIXTURES_PATH}/file1tree.json"
 
 
 @pytest.fixture
 def f2tree_j():
-    return os.path.join(os.path.dirname(__file__),
-                        'fixtures',
-                        'file2tree.json')
+    return f"{FIXTURES_PATH}/file2tree.json"
 
 
 @pytest.fixture
 def f1tree_y():
-    return os.path.join(os.path.dirname(__file__),
-                        'fixtures',
-                        'file1tree.yml')
+    return f"{FIXTURES_PATH}/file1tree.yml"
 
 
 @pytest.fixture
 def f2tree_y():
-    return os.path.join(os.path.dirname(__file__),
-                        'fixtures',
-                        'file2tree.yml')
+    return f"{FIXTURES_PATH}/file2tree.yml"
 
 
 @pytest.fixture
