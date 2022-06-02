@@ -1,6 +1,9 @@
 import json
 import yaml
-from gendiff.make_format import make_format
+from gendiff.formatters.stylish import stylish
+from gendiff.formatters.json import make_json_format
+from gendiff.formatters.plain import make_plain_format
+# from gendiff.make_format import make_format
 
 
 def load_file_by_format(file):
@@ -57,5 +60,11 @@ def generate_diff(file1, file2, format_name='stylish'):
     dict1 = load_file_by_format(file1)
     dict2 = load_file_by_format(file2)
     diff = calculate_diff(dict1, dict2)
-    actual_format = make_format(format_name)
-    return actual_format(diff)
+    # actual_format = make_format(format_name)
+    # return actual_format(diff)
+    if format_name == 'stylish':
+        return stylish(diff)
+    if format_name == 'plain':
+        return make_plain_format(diff)
+    if format_name == 'json':
+        return make_json_format(diff)
