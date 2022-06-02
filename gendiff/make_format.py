@@ -5,8 +5,8 @@ from gendiff.formatters.plain import make_plain_format
 
 def make_format(format_name):
     if format_name == 'stylish':
-        return stylish()
+        return stylish(diff)
     if format_name == 'plain':
-        return make_plain_format()
+        return make_plain_format(diff)
     if format_name == 'json':
-        return make_json_format()
+        return make_json_format(diff)
