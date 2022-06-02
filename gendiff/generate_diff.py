@@ -1,9 +1,9 @@
-# !/usr/bin/env python3
 import json
 import yaml
 from gendiff.formatters.stylish import stylish
 from gendiff.formatters.json import make_json_format
 from gendiff.formatters.plain import make_plain_format
+from gendiff.make_format import make_format
 
 
 def load_file_by_format(file):
@@ -14,14 +14,14 @@ def load_file_by_format(file):
     return loaded_file
 
 
-def create_key_set(dict1, dict2):
-    sorted_keys_set = sorted(set(dict1.keys()).union(set(dict2.keys())))
-    return sorted_keys_set
+# def create_key_set(dict1, dict2):
+    # sorted_keys_set = sorted(set(dict1.keys()).union(set(dict2.keys())))
+    # return sorted_keys_set
 
 
 def calculate_diff(dict1, dict2):
     res_dict = {}
-    keys = create_key_set(dict1, dict2)
+    keys = sorted(set(dict1.keys()).union(set(dict2.keys())))
     for key in keys:
         res_dict[key] = make_status_value_for_key(dict1, dict2, key)
     return res_dict
@@ -60,10 +60,4 @@ def generate_diff(file1, file2, format_name='stylish'):
     dict1 = load_file_by_format(file1)
     dict2 = load_file_by_format(file2)
     diff = calculate_diff(dict1, dict2)
-    if format_name == 'stylish':
-        make_format = stylish(diff)
-    if format_name == 'plain':
-        make_format = make_plain_format(diff)
-    if format_name == 'json':
-        make_format = make_json_format(diff)
-    return make_format
+    return make_format(diff)

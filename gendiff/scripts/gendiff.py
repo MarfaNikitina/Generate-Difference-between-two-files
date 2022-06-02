@@ -1,10 +1,10 @@
 # !/usr/bin/env python3
 from gendiff import generate_diff
-from gendiff.parser_gendiff import make_parser
+from gendiff.cli import parse
 
 
 def main():
-    args = make_parser()
+    args = parse()
     diff = generate_diff(args.first_file, args.second_file, args.format)
     print(diff)
 
