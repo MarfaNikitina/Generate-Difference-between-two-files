@@ -1,8 +1,12 @@
+from gendiff.formatters.stylish import stylish
+from gendiff.formatters.json import make_json_format
+from gendiff.formatters.plain import make_plain_format
+
+
 def make_format(format_name):
     if format_name == 'stylish':
-        make_format = stylish()
+        return stylish()
     if format_name == 'plain':
-        make_format = make_plain_format()
+        return make_plain_format()
     if format_name == 'json':
-        make_format = make_json_format()
-    return make_format
+        return make_json_format()

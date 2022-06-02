@@ -1,8 +1,5 @@
 import json
 import yaml
-from gendiff.formatters.stylish import stylish
-from gendiff.formatters.json import make_json_format
-from gendiff.formatters.plain import make_plain_format
 from gendiff.make_format import make_format
 
 
