@@ -1,4 +1,4 @@
-# !/usr/bin/env python3
+from gendiff.format_value import format_value_to_string
 
 
 OPEN_BRACKET = '{'
@@ -8,16 +8,6 @@ LINE_BREAK = '\n'
 EMPTY = '    '
 PLUS = '  + '
 MINUS = '  - '
-
-
-def make_value_to_string(value):
-    if value is True:
-        value = 'true'
-    elif value is False:
-        value = 'false'
-    elif value is None:
-        value = 'null'
-    return value
 
 
 def make_stylish_format(diff_dict, depth=0):
@@ -42,7 +32,7 @@ def make_stylish_format(diff_dict, depth=0):
 
 
 def format_value_to_str(some_value, indent1=''):
-    value = make_value_to_string(some_value)
+    value = format_value_to_string(some_value)
     if not isinstance(value, dict):
         return str(value)
 
