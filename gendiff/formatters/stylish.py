@@ -26,7 +26,8 @@ def make_stylish_format(diff_dict, depth=0):
     for k, v in diff_dict.items():
         if v['STATUS'] == 'HASCHILD':
             res += f"{indent}{EMPTY}{k}: " \
-                   f"{stylish(v['CHILDREN'], depth + 2)}{LINE_BREAK}"
+                   f"{make_stylish_format(v['CHILDREN'], depth + 2)}" \
+                   f"{LINE_BREAK}"
         elif v['STATUS'] in ['UNCHANGED', 'ADDED', 'DELETED']:
             res += f"{indent}{format_k(k, v)}: "\
                    f"{format_value_to_str(v['VALUE'], indent * (depth - 1))}\n"
