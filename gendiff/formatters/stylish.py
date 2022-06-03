@@ -1,4 +1,4 @@
-from gendiff.format_value import format_value_to_string
+from gendiff.format_value import make_value_to_string
 
 
 OPEN_BRACKET = '{'
@@ -32,7 +32,7 @@ def make_stylish_format(diff_dict, depth=0):
 
 
 def format_value_to_str(some_value, indent1=''):
-    value = format_value_to_string(some_value)
+    value = make_value_to_string(some_value)
     if not isinstance(value, dict):
         return str(value)
 

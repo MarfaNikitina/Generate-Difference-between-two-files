@@ -1,4 +1,4 @@
-def format_value_to_string(value):
+def make_value_to_string(value):
     if value is True:
         value = 'true'
     elif value is False:
