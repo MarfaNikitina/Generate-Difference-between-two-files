@@ -1,15 +1,10 @@
-# !/usr/bin/env python3
-import argparse
+import json
+import yaml
 
 
-def make_parser():
-    parser = argparse.ArgumentParser(
-        prog='gendiff',
-        description='Compares two configuration files and shows a difference.')
-    parser.add_argument('first_file')
-    parser.add_argument('second_file')
-    parser.add_argument('-f',
-                        '--format',
-                        default='stylish', help='set format of output')
-    args = parser.parse_args()
-    return args
+def load_file_by_format(file):
+    if file.endswith(".json"):
+        loaded_file = json.load(open(f'{file}'))
+    elif file.endswith(".yml") or file.endswith(".yaml"):
+        loaded_file = yaml.safe_load(open(f'{file}'))
+    return loaded_file

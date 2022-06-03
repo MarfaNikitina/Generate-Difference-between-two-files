@@ -10,7 +10,7 @@ PLUS = '  + '
 MINUS = '  - '
 
 
-def convert_value(value):
+def make_value_to_string(value):
     if value is True:
         value = 'true'
     elif value is False:
@@ -20,7 +20,7 @@ def convert_value(value):
     return value
 
 
-def stylish(diff_dict, depth=0):
+def make_stylish_format(diff_dict, depth=0):
     indent = TAB * depth
     res = OPEN_BRACKET + LINE_BREAK
     for k, v in diff_dict.items():
@@ -41,7 +41,7 @@ def stylish(diff_dict, depth=0):
 
 
 def format_value_to_str(some_value, indent1=''):
-    value = convert_value(some_value)
+    value = make_value_to_string(some_value)
     if not isinstance(value, dict):
         return str(value)
 
