@@ -1,19 +1,5 @@
-import json
-import yaml
 from gendiff.make_format import make_format
-
-
-def load_file_by_format(file):
-    if file.endswith(".json"):
-        loaded_file = json.load(open(f'{file}'))
-    elif file.endswith(".yml") or file.endswith(".yaml"):
-        loaded_file = yaml.safe_load(open(f'{file}'))
-    return loaded_file
-
-
-# def create_key_set(dict1, dict2):
-    # sorted_keys_set = sorted(set(dict1.keys()).union(set(dict2.keys())))
-    # return sorted_keys_set
+from parser_gendiff import load_file_by_format
 
 
 def calculate_diff(dict1, dict2):
