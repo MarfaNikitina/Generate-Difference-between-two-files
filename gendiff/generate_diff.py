@@ -1,5 +1,5 @@
 from gendiff.make_format import make_format
-from parser_gendiff import load_file_by_format
+from gendiff.parser_gendiff import load_file_by_format
 
 
 def calculate_diff(dict1, dict2):
