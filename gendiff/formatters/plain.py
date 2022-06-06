@@ -56,5 +56,5 @@ def make_format_for_child(value, key):
             result_list = result_list
         elif val['STATUS'] == 'HASCHILD':
             next_parent = f'{parent}.{key_}'
-            result_list.append(plain_for_child(val, next_parent))
+            result_list.append(make_format_for_child(val, next_parent))
     return '\n'.join(result_list)

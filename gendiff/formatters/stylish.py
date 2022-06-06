@@ -16,16 +16,19 @@ def make_stylish_format(diff_dict, depth=0):
     for k, v in diff_dict.items():
         if v['STATUS'] == 'HASCHILD':
             result += f"{indent}{EMPTY}{k}: " \
-                   f"{make_stylish_format(v['CHILDREN'], depth + 2)}" \
-                   f"{LINE_BREAK}"
+                      f"{make_stylish_format(v['CHILDREN'], depth + 2)}" \
+                      f"{LINE_BREAK}"
         elif v['STATUS'] in ['UNCHANGED', 'ADDED', 'REMOVED']:
-            result += f"{indent}{format_key(k, v)}: "\
-                   f"{format_value_to_string(v['VALUE'], indent * (depth - 1))}\n"
+            result += f"{indent}{format_key(k, v)}: " \
+                      f"{format_value_to_string(v['VALUE'], indent * (depth - 1))}" \
+                      f"\n"
         elif v['STATUS'] == 'CHANGED':
             result += f"{indent}{MINUS}{k}: " \
-                   f"{format_value_to_string(v['VALUE1'], indent * (depth - 1))}\n"
+                      f"{format_value_to_string(v['VALUE1'], indent * (depth - 1))}" \
+                      f"\n"
             result += f"{indent}{PLUS}{k}: " \
-                   f"{format_value_to_string(v['VALUE2'], indent * (depth - 1))}\n"
+                      f"{format_value_to_string(v['VALUE2'], indent * (depth - 1))}" \
+                      f"\n"
     close_bracket_indent = TAB * depth
     result += close_bracket_indent + CLOSE_BRACKET
     return result
