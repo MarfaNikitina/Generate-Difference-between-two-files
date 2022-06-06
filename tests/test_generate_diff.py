@@ -13,9 +13,9 @@ FIXTURES_PATH = f"{TESTS_DIR}/fixtures"
     [((f"{FIXTURES_PATH}/file1.json",
       f"{FIXTURES_PATH}/file2.json"),
       open(f"{FIXTURES_PATH}/file1file2_json_diff.txt", "r").read()),
-    ((f"{FIXTURES_PATH}/file1.yml",
-      f"{FIXTURES_PATH}/file2.yml"),
-      open(f"{FIXTURES_PATH}/f1f2_yml_diff.txt", "r").read()),
+        ((f"{FIXTURES_PATH}/file1.yml",
+            f"{FIXTURES_PATH}/file2.yml"),
+            open(f"{FIXTURES_PATH}/f1f2_yml_diff.txt", "r").read()),
      ])
 def test_gendiff(test_input, expected):
     assert generate_diff(test_input[0], test_input[1]) == expected
