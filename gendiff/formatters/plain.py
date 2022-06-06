@@ -1,6 +1,6 @@
 # !/usr/bin/env python3
 import itertools
-from gendiff.format_value import make_value_to_string
+from gendiff.value import make_value_to_string
 
 
 def update_value(value):

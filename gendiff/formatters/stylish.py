@@ -1,4 +1,4 @@
-from gendiff.format_value import make_value_to_string
+from gendiff.value import make_value_to_string
 
 
 OPEN_BRACKET = '{'
