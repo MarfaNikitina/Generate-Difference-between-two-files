@@ -5,9 +5,9 @@ OPEN_BRACKET = '{'
 CLOSE_BRACKET = '}'
 TAB = '  '
 LINE_BREAK = '\n'
-EMPTY = '    '
-PLUS = '  + '
-MINUS = '  - '
+UNCHANGED = '    '
+ADDED = '  + '
+REMOVED = '  - '
 
 
 def render(diff_dict, depth=0):
@@ -16,16 +16,16 @@ def render(diff_dict, depth=0):
     indent2 = indent * (depth - 1)
     for k, v in diff_dict.items():
         if v['STATUS'] == 'HASCHILD':
-            result += f"{indent}{EMPTY}{k}: " \
+            result += f"{indent}{TAB * 2}{k}: " \
                       f"{render(v['CHILDREN'], depth + 2)}" \
                       f"{LINE_BREAK}"
         elif v['STATUS'] in ['UNCHANGED', 'ADDED', 'REMOVED']:
             result += f"{indent}{format_key(k, v)}: " \
                       f"{format_value_to_string(v['VALUE'], indent2)}\n"
         elif v['STATUS'] == 'CHANGED':
-            result += f"{indent}{MINUS}{k}: " \
+            result += f"{indent}{REMOVED}{k}: " \
                       f"{format_value_to_string(v['VALUE1'], indent2)}\n"
-            result += f"{indent}{PLUS}{k}: " \
+            result += f"{indent}{ADDED}{k}: " \
                       f"{format_value_to_string(v['VALUE2'], indent2)}\n"
     close_bracket_indent = TAB * depth
     result += close_bracket_indent + CLOSE_BRACKET
@@ -54,8 +54,8 @@ def format_value_to_string(some_value, indent1=''):
 
 def format_key(key, value):
     if value['STATUS'] == 'UNCHANGED':
-        return EMPTY + key
+        return UNCHANGED + key
     elif value['STATUS'] == 'REMOVED':
-        return MINUS + key
+        return REMOVED + key
     elif value['STATUS'] == 'ADDED':
-        return PLUS + key
+        return ADDED + key
