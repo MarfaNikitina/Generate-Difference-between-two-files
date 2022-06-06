@@ -10,14 +10,14 @@ PLUS = '  + '
 MINUS = '  - '
 
 
-def make_stylish_format(diff_dict, depth=0):
+def render(diff_dict, depth=0):
     indent = TAB * depth
     result = OPEN_BRACKET + LINE_BREAK
     indent2 = indent * (depth - 1)
     for k, v in diff_dict.items():
         if v['STATUS'] == 'HASCHILD':
             result += f"{indent}{EMPTY}{k}: " \
-                      f"{make_stylish_format(v['CHILDREN'], depth + 2)}" \
+                      f"{render(v['CHILDREN'], depth + 2)}" \
                       f"{LINE_BREAK}"
         elif v['STATUS'] in ['UNCHANGED', 'ADDED', 'REMOVED']:
             result += f"{indent}{format_key(k, v)}: " \

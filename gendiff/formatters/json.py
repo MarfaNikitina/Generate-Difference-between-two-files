@@ -2,6 +2,7 @@
 import json
 
 
-def make_json_format(diff_dict):
+def structure(diff_dict):
+    # структурированный вывод
     result = json.dumps(diff_dict, indent=4)
     return result

@@ -20,17 +20,19 @@ def format_value(value):
         return f"'{new_value}'"
 
 
-def make_expression_end(v):
-    if v['STATUS'] == 'ADDED':
-        return f"added with value: {format_value(v['VALUE'])}"
-    elif v['STATUS'] == 'REMOVED':
+def make_expression_end(value):
+    if value['STATUS'] == 'ADDED':
+        return f"added with value: {format_value(value['VALUE'])}"
+    elif value['STATUS'] == 'REMOVED':
         return "removed"
-    elif v['STATUS'] == 'CHANGED':
-        return f"updated. From {format_value(v['VALUE1'])} " \
-               f"to {format_value(v['VALUE2'])}"
+    elif value['STATUS'] == 'CHANGED':
+        return f"updated. From {format_value(value['VALUE1'])} " \
+               f"to {format_value(value['VALUE2'])}"
 
 
-def make_plain_format(diff_dict):
+def unit_files(diff_dict):
+    # возможно, не лучшее название. Навеяно текстом в задании
+    # "Текст отражает ситуацию, словно мы объединили второй объект с первым"
     result_list = []
     for k, v in diff_dict.items():
         if v['STATUS'] in ['CHANGED', 'ADDED', 'REMOVED']:
