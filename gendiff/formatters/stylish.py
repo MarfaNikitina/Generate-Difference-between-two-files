@@ -12,33 +12,33 @@ MINUS = '  - '
 
 def make_stylish_format(diff_dict, depth=0):
     indent = TAB * depth
-    res = OPEN_BRACKET + LINE_BREAK
+    result = OPEN_BRACKET + LINE_BREAK
     for k, v in diff_dict.items():
         if v['STATUS'] == 'HASCHILD':
-            res += f"{indent}{EMPTY}{k}: " \
+            result += f"{indent}{EMPTY}{k}: " \
                    f"{make_stylish_format(v['CHILDREN'], depth + 2)}" \
                    f"{LINE_BREAK}"
-        elif v['STATUS'] in ['UNCHANGED', 'ADDED', 'DELETED']:
-            res += f"{indent}{format_k(k, v)}: "\
-                   f"{format_value_to_str(v['VALUE'], indent * (depth - 1))}\n"
+        elif v['STATUS'] in ['UNCHANGED', 'ADDED', 'REMOVED']:
+            result += f"{indent}{format_key(k, v)}: "\
+                   f"{format_value_to_string(v['VALUE'], indent * (depth - 1))}\n"
         elif v['STATUS'] == 'CHANGED':
-            res += f"{indent}{MINUS}{k}: " \
-                   f"{format_value_to_str(v['VALUE1'], indent * (depth - 1))}\n"
-            res += f"{indent}{PLUS}{k}: " \
-                   f"{format_value_to_str(v['VALUE2'], indent * (depth - 1))}\n"
+            result += f"{indent}{MINUS}{k}: " \
+                   f"{format_value_to_string(v['VALUE1'], indent * (depth - 1))}\n"
+            result += f"{indent}{PLUS}{k}: " \
+                   f"{format_value_to_string(v['VALUE2'], indent * (depth - 1))}\n"
     close_bracket_indent = TAB * depth
-    res += close_bracket_indent + CLOSE_BRACKET
-    return res
+    result += close_bracket_indent + CLOSE_BRACKET
+    return result
 
 
-def format_value_to_str(some_value, indent1=''):
+def format_value_to_string(some_value, indent1=''):
     value = make_value_to_string(some_value)
     if not isinstance(value, dict):
         return str(value)
 
     def walk(node, depth=1):
         result = ''
-        tab = '    '
+        tab = 2 * TAB
         current_ind = indent1 + tab * (depth + 2)
         for k, v in node.items():
             if isinstance(v, dict):
@@ -51,10 +51,10 @@ def format_value_to_str(some_value, indent1=''):
     return '{\n' + walk(value, 0)
 
 
-def format_k(k, v):
-    if v['STATUS'] == 'UNCHANGED':
-        return EMPTY + k
-    elif v['STATUS'] == 'DELETED':
-        return MINUS + k
-    elif v['STATUS'] == 'ADDED':
-        return PLUS + k
+def format_key(key, value):
+    if value['STATUS'] == 'UNCHANGED':
+        return EMPTY + key
+    elif value['STATUS'] == 'REMOVED':
+        return MINUS + key
+    elif value['STATUS'] == 'ADDED':
+        return PLUS + key
