@@ -1,6 +1,6 @@
 {
     "follow": {
-        "STATUS": "DELETED",
+        "STATUS": "REMOVED",
         "VALUE": false
     },
     "host": {
@@ -8,7 +8,7 @@
         "VALUE": "hexlet.io"
     },
     "proxy": {
-        "STATUS": "DELETED",
+        "STATUS": "REMOVED",
         "VALUE": "123.234.53.22"
     },
     "timeout": {

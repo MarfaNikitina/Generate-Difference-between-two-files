@@ -11,7 +11,7 @@
                 "VALUE": "Value 1"
             },
             "setting2": {
-                "STATUS": "DELETED",
+                "STATUS": "REMOVED",
                 "VALUE": 200
             },
             "setting3": {
@@ -76,7 +76,7 @@
         }
     },
     "group2": {
-        "STATUS": "DELETED",
+        "STATUS": "REMOVED",
         "VALUE": {
             "abc": 12345,
             "deep": {

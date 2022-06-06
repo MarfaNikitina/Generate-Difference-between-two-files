@@ -13,6 +13,7 @@ MINUS = '  - '
 def make_stylish_format(diff_dict, depth=0):
     indent = TAB * depth
     result = OPEN_BRACKET + LINE_BREAK
+    indent2 = indent * (depth - 1)
     for k, v in diff_dict.items():
         if v['STATUS'] == 'HASCHILD':
             result += f"{indent}{EMPTY}{k}: " \
@@ -20,15 +21,12 @@ def make_stylish_format(diff_dict, depth=0):
                       f"{LINE_BREAK}"
         elif v['STATUS'] in ['UNCHANGED', 'ADDED', 'REMOVED']:
             result += f"{indent}{format_key(k, v)}: " \
-                      f"{format_value_to_string(v['VALUE'], indent * (depth - 1))}" \
-                      f"\n"
+                      f"{format_value_to_string(v['VALUE'], indent2)}\n"
         elif v['STATUS'] == 'CHANGED':
             result += f"{indent}{MINUS}{k}: " \
-                      f"{format_value_to_string(v['VALUE1'], indent * (depth - 1))}" \
-                      f"\n"
+                      f"{format_value_to_string(v['VALUE1'], indent2)}\n"
             result += f"{indent}{PLUS}{k}: " \
-                      f"{format_value_to_string(v['VALUE2'], indent * (depth - 1))}" \
-                      f"\n"
+                      f"{format_value_to_string(v['VALUE2'], indent2)}\n"
     close_bracket_indent = TAB * depth
     result += close_bracket_indent + CLOSE_BRACKET
     return result
