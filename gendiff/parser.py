@@ -9,7 +9,6 @@ def parse_data(data, format):
         return yaml.safe_load(data)
 
 
-
 # def load_file_by_format(file):
     # if file.endswith(".json"):
         # loaded_file = json.load(open(f'{file}'))

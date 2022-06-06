@@ -1,5 +1,5 @@
 from gendiff.formatter import make_format
-from gendiff.parser import parse
+from gendiff.parser import parse_data
 import os
 
 
@@ -42,9 +42,9 @@ def make_status_value_for_key(dict1, dict2, key):
 
 def generate_diff(file1, file2, format_name='stylish'):
     with open(file1, "r") as data:
-        dict1 = parse(data, define_file_type(file1))
+        dict1 = parse_data(data, define_file_type(file1))
     with open(file2, "r") as data:
-        dict2 = parse(data, define_file_type(file2))
+        dict2 = parse_data(data, define_file_type(file2))
     diff = calculate_diff(dict1, dict2)
     return make_format(diff, format_name)
 
