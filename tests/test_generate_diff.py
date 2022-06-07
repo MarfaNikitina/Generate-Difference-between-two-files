@@ -23,12 +23,12 @@ def test_gendiff(file1, file2, filepath):
 
 
 @pytest.mark.parametrize(
-        "file1,file2,filepath",
-        [("file1.json", "file2.json", "f1f2plain_diff.txt"),
-            ("file1.yml", "file2.yml", "f1f2plain_diff.txt"),
-            ("file1tree.json", "file2tree.json", "plain_diff.txt"),
-            ("file1tree.yml", "file2tree.yml", "plain_diff.txt")
-         ])
+    "file1,file2,filepath",
+    [("file1.json", "file2.json", "f1f2plain_diff.txt"),
+        ("file1.yml", "file2.yml", "f1f2plain_diff.txt"),
+     ("file1tree.json", "file2tree.json", "plain_diff.txt"),
+        ("file1tree.yml", "file2tree.yml", "plain_diff.txt")
+     ])
 def test_plain_gendiff(file1, file2, filepath):
     f1 = f"{FIXTURES_PATH}/{file1}"
     f2 = f"{FIXTURES_PATH}/{file2}"
@@ -37,13 +37,13 @@ def test_plain_gendiff(file1, file2, filepath):
 
 
 @pytest.mark.parametrize(
-        "file1,file2,filepath",
-        [("file1.json", "file2.json", "f1f2json_diff.txt"),
-            ("file1.yml", "file2.yml", "f1f2json_diff.txt"),
-            ("file1tree.json", "file2tree.json", "jsondiff.txt"),
-            ("file1tree.yml", "file2tree.yml", "jsondiff.txt")
-         ])
-def test_plain_gendiff(file1, file2, filepath):
+    "file1,file2,filepath",
+    [("file1.json", "file2.json", "f1f2json_diff.txt"),
+        ("file1.yml", "file2.yml", "f1f2json_diff.txt"),
+     ("file1tree.json", "file2tree.json", "jsondiff.txt"),
+        ("file1tree.yml", "file2tree.yml", "jsondiff.txt")
+     ])
+def test_json_gendiff(file1, file2, filepath):
     f1 = f"{FIXTURES_PATH}/{file1}"
     f2 = f"{FIXTURES_PATH}/{file2}"
     expected = open(f"{FIXTURES_PATH}/{filepath}", "r").read()
