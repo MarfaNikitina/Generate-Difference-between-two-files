@@ -1,4 +1,4 @@
-from gendiff.value import make_value_to_string
+from gendiff.value import make_to_string
 
 
 OPEN_BRACKET = '{'
@@ -16,7 +16,7 @@ def render(diff_dict, depth=0):
     indent2 = indent * (depth - 1)
     for k, v in diff_dict.items():
         if v['STATUS'] == 'HASCHILD':
-            result += f"{indent}{TAB * 2}{k}: " \
+            result += f"{indent}{UNCHANGED}{k}: " \
                       f"{render(v['CHILDREN'], depth + 2)}" \
                       f"{LINE_BREAK}"
         elif v['STATUS'] in ['UNCHANGED', 'ADDED', 'REMOVED']:
@@ -33,7 +33,7 @@ def render(diff_dict, depth=0):
 
 
 def format_value_to_string(some_value, indent1=''):
-    value = make_value_to_string(some_value)
+    value = make_to_string(some_value)
     if not isinstance(value, dict):
         return str(value)
 

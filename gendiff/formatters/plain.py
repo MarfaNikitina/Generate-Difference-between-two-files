@@ -1,6 +1,6 @@
 # !/usr/bin/env python3
 import itertools
-from gendiff.value import make_value_to_string
+from gendiff.value import make_to_string
 
 
 def update_value(value):
@@ -10,7 +10,7 @@ def update_value(value):
 
 
 def format_value(value):
-    new_value = make_value_to_string(update_value(value))
+    new_value = make_to_string(update_value(value))
     exceptions = ['[complex value]', 'null', 'true', 'false']
     if new_value in exceptions:
         return new_value
