@@ -3,10 +3,10 @@ from gendiff.formatters.json import structure
 from gendiff.formatters.plain import unit_files
 
 
-def make_format(diff, format_name):
-    if format_name == 'stylish':
+def format(diff, format_type):
+    if format_type == 'stylish':
         return render(diff)
-    if format_name == 'plain':
+    if format_type == 'plain':
         return unit_files(diff)
-    if format_name == 'json':
+    if format_type == 'json':
         return structure(diff)

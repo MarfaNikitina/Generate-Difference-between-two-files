@@ -9,57 +9,42 @@ FIXTURES_PATH = f"{TESTS_DIR}/fixtures"
 
 
 @pytest.mark.parametrize(
-    "test_input,expected",
-    [((f"{FIXTURES_PATH}/file1.json",
-      f"{FIXTURES_PATH}/file2.json"),
-      open(f"{FIXTURES_PATH}/file1file2_json_diff.txt", "r").read()),
-        ((f"{FIXTURES_PATH}/file1.yml",
-            f"{FIXTURES_PATH}/file2.yml"),
-            open(f"{FIXTURES_PATH}/f1f2_yml_diff.txt", "r").read()),
-        ((f"{FIXTURES_PATH}/file1tree.json",
-            f"{FIXTURES_PATH}/file2tree.json"),
-            open(f"{FIXTURES_PATH}/f12tree_diff.txt", "r").read()),
-        ((f"{FIXTURES_PATH}/file1tree.yml",
-            f"{FIXTURES_PATH}/file2tree.yml"),
-            open(f"{FIXTURES_PATH}/f12tree_diff.txt", "r").read())
+    "file1,file2,filepath",
+    [("file1.json", "file2.json", "file1file2_json_diff.txt"),
+        ("file1.yml", "file2.yml", "f1f2_yml_diff.txt"),
+     ("file1tree.json", "file2tree.json", "f12tree_diff.txt"),
+        ("file1tree.yml", "file2tree.yml", "f12tree_diff.txt")
      ])
-def test_gendiff(test_input, expected):
-    assert generate_diff(test_input[0], test_input[1]) == expected
+def test_gendiff(file1, file2, filepath):
+    f1 = f"{FIXTURES_PATH}/{file1}"
+    f2 = f"{FIXTURES_PATH}/{file2}"
+    expected = open(f"{FIXTURES_PATH}/{filepath}", "r").read()
+    assert generate_diff(f1, f2) == expected
 
 
 @pytest.mark.parametrize(
-    "test_input,expected",
-    [((f"{FIXTURES_PATH}/file1.json",
-      f"{FIXTURES_PATH}/file2.json"),
-      open(f"{FIXTURES_PATH}/f1f2plain_diff.txt", "r").read()),
-        ((f"{FIXTURES_PATH}/file1.yml",
-            f"{FIXTURES_PATH}/file2.yml"),
-            open(f"{FIXTURES_PATH}/f1f2plain_diff.txt", "r").read()),
-        ((f"{FIXTURES_PATH}/file1tree.json",
-            f"{FIXTURES_PATH}/file2tree.json"),
-            open(f"{FIXTURES_PATH}/plain_diff.txt", "r").read()),
-        ((f"{FIXTURES_PATH}/file1tree.yml",
-            f"{FIXTURES_PATH}/file2tree.yml"),
-            open(f"{FIXTURES_PATH}/plain_diff.txt", "r").read())
-     ])
-def test_plain_gendiff(test_input, expected):
-    assert generate_diff(test_input[0], test_input[1], format_name='plain') == expected
+        "file1,file2,filepath",
+        [("file1.json", "file2.json", "f1f2plain_diff.txt"),
+            ("file1.yml", "file2.yml", "f1f2plain_diff.txt"),
+            ("file1tree.json", "file2tree.json", "plain_diff.txt"),
+            ("file1tree.yml", "file2tree.yml", "plain_diff.txt")
+         ])
+def test_plain_gendiff(file1, file2, filepath):
+    f1 = f"{FIXTURES_PATH}/{file1}"
+    f2 = f"{FIXTURES_PATH}/{file2}"
+    expected = open(f"{FIXTURES_PATH}/{filepath}", "r").read()
+    assert generate_diff(f1, f2, format_type='plain') == expected
 
 
 @pytest.mark.parametrize(
-    "test_input,expected",
-    [((f"{FIXTURES_PATH}/file1.json",
-      f"{FIXTURES_PATH}/file2.json"),
-      open(f"{FIXTURES_PATH}/f1f2json_diff.txt", "r").read()),
-        ((f"{FIXTURES_PATH}/file1.yml",
-            f"{FIXTURES_PATH}/file2.yml"),
-            open(f"{FIXTURES_PATH}/f1f2json_diff.txt", "r").read()),
-        ((f"{FIXTURES_PATH}/file1tree.json",
-            f"{FIXTURES_PATH}/file2tree.json"),
-            open(f"{FIXTURES_PATH}/jsondiff.txt", "r").read()),
-     ((f"{FIXTURES_PATH}/file1tree.yml",
-       f"{FIXTURES_PATH}/file2tree.yml"),
-      open(f"{FIXTURES_PATH}/jsondiff.txt", "r").read())
-     ])
-def test_json_gendiff(test_input, expected):
-    assert generate_diff(test_input[0], test_input[1], format_name='json') == expected
+        "file1,file2,filepath",
+        [("file1.json", "file2.json", "f1f2json_diff.txt"),
+            ("file1.yml", "file2.yml", "f1f2json_diff.txt"),
+            ("file1tree.json", "file2tree.json", "jsondiff.txt"),
+            ("file1tree.yml", "file2tree.yml", "jsondiff.txt")
+         ])
+def test_plain_gendiff(file1, file2, filepath):
+    f1 = f"{FIXTURES_PATH}/{file1}"
+    f2 = f"{FIXTURES_PATH}/{file2}"
+    expected = open(f"{FIXTURES_PATH}/{filepath}", "r").read()
+    assert generate_diff(f1, f2, format_type='json') == expected
