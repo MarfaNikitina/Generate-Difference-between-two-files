@@ -20,14 +20,14 @@ def format_value(value):
         return f"'{new_value}'"
 
 
-def make_expression_end(value):
-    if value['STATUS'] == 'ADDED':
-        return f"added with value: {format_value(value['VALUE'])}"
-    elif value['STATUS'] == 'REMOVED':
+def build_suffix(some_dict):
+    if some_dict['STATUS'] == 'ADDED':
+        return f"added with value: {format_value(some_dict['VALUE'])}"
+    if some_dict['STATUS'] == 'REMOVED':
         return "removed"
-    elif value['STATUS'] == 'CHANGED':
-        return f"updated. From {format_value(value['VALUE1'])} " \
-               f"to {format_value(value['VALUE2'])}"
+    if some_dict['STATUS'] == 'CHANGED':
+        return f"updated. From {format_value(some_dict['VALUE1'])} " \
+               f"to {format_value(some_dict['VALUE2'])}"
 
 
 def render(diff_dict):
@@ -35,7 +35,7 @@ def render(diff_dict):
     for k, v in diff_dict.items():
         if v['STATUS'] in ['CHANGED', 'ADDED', 'REMOVED']:
             result_list.append(f'Property \'{k}\''
-                               f' was {make_expression_end(v)}')
+                               f' was {build_suffix(v)}')
         elif v['STATUS'] == 'UNCHANGED':
             result_list = result_list
         elif v['STATUS'] == 'HASCHILD':
@@ -51,7 +51,7 @@ def make_format_for_child(value, key):
     for key_, val in child.items():
         if val['STATUS'] in ['CHANGED', 'ADDED', 'REMOVED']:
             result_list.append(f"Property '{parent}.{key_}'"
-                               f" was {make_expression_end(val)}")
+                               f" was {build_suffix(val)}")
         elif val['STATUS'] == 'UNCHANGED':
             result_list = result_list
         elif val['STATUS'] == 'HASCHILD':

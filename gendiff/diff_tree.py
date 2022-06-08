@@ -2,11 +2,11 @@ def calculate_diff(dict1, dict2):
     res_dict = {}
     keys = sorted(set(dict1.keys()).union(set(dict2.keys())))
     for key in keys:
-        res_dict[key] = define_diff(dict1, dict2, key)
+        res_dict[key] = generate_key_diff(dict1, dict2, key)
     return res_dict
 
 
-def define_diff(dict1, dict2, key):
+def generate_key_diff(dict1, dict2, key):
     if isinstance(dict1.get(key), dict) and isinstance(dict2.get(key), dict):
         return {
             'STATUS': 'HASCHILD',
