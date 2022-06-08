@@ -30,9 +30,7 @@ def make_expression_end(value):
                f"to {format_value(value['VALUE2'])}"
 
 
-def unit_files(diff_dict):
-    # возможно, не лучшее название. Навеяно текстом в задании
-    # "Текст отражает ситуацию, словно мы объединили второй объект с первым"
+def render(diff_dict):
     result_list = []
     for k, v in diff_dict.items():
         if v['STATUS'] in ['CHANGED', 'ADDED', 'REMOVED']:
