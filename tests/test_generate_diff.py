@@ -9,7 +9,7 @@ FIXTURES_PATH = f"{TESTS_DIR}/fixtures"
 
 
 @pytest.mark.parametrize(
-    "file1,file2,{filepath}",
+    "file1,file2,filepath",
     [("file1.json", "file2.json",
       {'STYLISH': "file1file2_json_diff.txt",
        'PLAIN': "f1f2plain_diff.txt",
