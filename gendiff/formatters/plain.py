@@ -1,16 +1,21 @@
 # !/usr/bin/env python3
 import itertools
-from gendiff.value import make_to_string
 
 
-def update_value(value):
+def to_string(value):
+    if value is True:
+        value = 'true'
+    elif value is False:
+        value = 'false'
+    elif value is None:
+        value = 'null'
     if isinstance(value, dict):
         return '[complex value]'
     return value
 
 
 def format_value(value):
-    new_value = make_to_string(update_value(value))
+    new_value = to_string(value)
     exceptions = ['[complex value]', 'null', 'true', 'false']
     if new_value in exceptions:
         return new_value

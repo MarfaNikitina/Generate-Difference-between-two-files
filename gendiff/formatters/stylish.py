@@ -1,6 +1,3 @@
-from gendiff.value import make_to_string
-
-
 OPEN_BRACKET = '{'
 CLOSE_BRACKET = '}'
 TAB = '  '
@@ -8,6 +5,16 @@ LINE_BREAK = '\n'
 UNCHANGED = '    '
 ADDED = '  + '
 REMOVED = '  - '
+
+
+def to_string(value):
+    if value is True:
+        value = 'true'
+    elif value is False:
+        value = 'false'
+    elif value is None:
+        value = 'null'
+    return value
 
 
 def render(diff_dict, depth=0):
@@ -33,7 +40,7 @@ def render(diff_dict, depth=0):
 
 
 def format_value_to_string(some_value, indent1=''):
-    value = make_to_string(some_value)
+    value = to_string(some_value)
     if not isinstance(value, dict):
         return str(value)
 
