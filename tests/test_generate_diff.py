@@ -15,7 +15,7 @@ FIXTURES_PATH = f"{TESTS_DIR}/fixtures"
        'PLAIN': "f1f2plain_diff.txt",
        'JSON': "f1f2json_diff.txt"}),
         ("file1.yml", "file2.yml",
-         {'STYLISH': "file1file2_yml_diff.txt",
+         {'STYLISH': "file1file2_json_diff.txt",
           'PLAIN': "f1f2plain_diff.txt",
           'JSON': "f1f2json_diff.txt"}),
      ("file1tree.json", "file2tree.json",
