@@ -32,7 +32,7 @@ def build_suffix(node):
         return " was removed"
     if node['STATUS'] == 'CHANGED':
         return f"was updated. From {format_value(node['VALUE1'])} " \
-               f"to {format_value(some_dict['VALUE2'])}"
+               f"to {format_value(node['VALUE2'])}"
 
 
 def render(diff_dict):
