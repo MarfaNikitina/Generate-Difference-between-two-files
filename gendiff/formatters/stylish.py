@@ -7,16 +7,6 @@ ADDED = '  + '
 REMOVED = '  - '
 
 
-def to_string(value):
-    if value is True:
-        value = 'true'
-    elif value is False:
-        value = 'false'
-    elif value is None:
-        value = 'null'
-    return value
-
-
 def render(diff_dict, depth=0):
     indent = TAB * depth
     result = OPEN_BRACKET + LINE_BREAK
@@ -39,8 +29,13 @@ def render(diff_dict, depth=0):
     return result
 
 
-def format_value_to_string(some_value, indent1=''):
-    value = to_string(some_value)
+def format_value_to_string(value, indent1=''):
+    if value is True:
+        value = 'true'
+    elif value is False:
+        value = 'false'
+    elif value is None:
+        value = 'null'
     if not isinstance(value, dict):
         return str(value)
 
