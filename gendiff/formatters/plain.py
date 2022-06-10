@@ -45,6 +45,6 @@ def render(diff_dict, path=''):
             parent = k
             child = v['CHILDREN']
             new_path = path + parent + '.'
-            result_list.append(render_new(child, new_path))
+            result_list.append(render(child, new_path))
     result = itertools.chain(result_list)
     return '\n'.join(result)
