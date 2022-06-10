@@ -27,9 +27,9 @@ def format_value(value):
 
 def build_suffix(node):
     if node['STATUS'] == 'ADDED':
-        return f" was added with value: {format_value(node['VALUE'])}"
+        return f"was added with value: {format_value(node['VALUE'])}"
     if node['STATUS'] == 'REMOVED':
-        return " was removed"
+        return "was removed"
     if node['STATUS'] == 'CHANGED':
         return f"was updated. From {format_value(node['VALUE1'])} " \
                f"to {format_value(node['VALUE2'])}"
