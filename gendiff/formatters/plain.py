@@ -45,8 +45,8 @@ def render(diff_dict):
             # result_list = result_list
         elif v['STATUS'] == 'HASCHILD':
             result_list.append(make_format_for_child(v, k))
-        #else:
-            #result_list
+        # else:
+            # result_list
     result = itertools.chain(result_list)
     return '\n'.join(result)
 
