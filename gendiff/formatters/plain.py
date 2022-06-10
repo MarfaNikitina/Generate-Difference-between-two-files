@@ -3,14 +3,14 @@ import itertools
 
 
 def to_string(value):
+    if isinstance(value, dict):
+        return '[complex value]'
     if value is True:
         value = 'true'
     elif value is False:
         value = 'false'
     elif value is None:
         value = 'null'
-    if isinstance(value, dict):
-        return '[complex value]'
     return value
 
 
@@ -35,33 +35,16 @@ def build_suffix(node):
                f"to {format_value(node['VALUE2'])}"
 
 
-def render(diff_dict):
+def render(diff_dict, path=''):
     result_list = []
     for k, v in diff_dict.items():
         if v['STATUS'] in ['CHANGED', 'ADDED', 'REMOVED']:
-            result_list.append(f'Property \'{k}\''
+            result_list.append(f'Property \'{path}{k}\''
                                f' {build_suffix(v)}')
-        # elif v['STATUS'] == 'UNCHANGED':
-            # result_list = result_list
         elif v['STATUS'] == 'HASCHILD':
-            result_list.append(make_format_for_child(v, k))
-        # else:
-            # result_list
+            parent = k
+            child = v['CHILDREN']
+            new_path = path + parent + '.'
+            result_list.append(render_new(child, new_path))
     result = itertools.chain(result_list)
     return '\n'.join(result)
-
-
-def make_format_for_child(value, key):
-    parent = key
-    child = value['CHILDREN']
-    result_list = []
-    for key_, val in child.items():
-        if val['STATUS'] in ['CHANGED', 'ADDED', 'REMOVED']:
-            result_list.append(f"Property '{parent}.{key_}'"
-                               f" {build_suffix(val)}")
-        # elif val['STATUS'] == 'UNCHANGED':
-            # result_list = result_list
-        elif val['STATUS'] == 'HASCHILD':
-            next_parent = f'{parent}.{key_}'
-            result_list.append(make_format_for_child(val, next_parent))
-    return '\n'.join(result_list)
