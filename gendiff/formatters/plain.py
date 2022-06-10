@@ -41,10 +41,12 @@ def render(diff_dict):
         if v['STATUS'] in ['CHANGED', 'ADDED', 'REMOVED']:
             result_list.append(f'Property \'{k}\''
                                f' {build_suffix(v)}')
-        elif v['STATUS'] == 'UNCHANGED':
-            result_list = result_list
+        # elif v['STATUS'] == 'UNCHANGED':
+            # result_list = result_list
         elif v['STATUS'] == 'HASCHILD':
             result_list.append(make_format_for_child(v, k))
+        #else:
+            #result_list
     result = itertools.chain(result_list)
     return '\n'.join(result)
 
@@ -57,8 +59,8 @@ def make_format_for_child(value, key):
         if val['STATUS'] in ['CHANGED', 'ADDED', 'REMOVED']:
             result_list.append(f"Property '{parent}.{key_}'"
                                f" {build_suffix(val)}")
-        elif val['STATUS'] == 'UNCHANGED':
-            result_list = result_list
+        # elif val['STATUS'] == 'UNCHANGED':
+            # result_list = result_list
         elif val['STATUS'] == 'HASCHILD':
             next_parent = f'{parent}.{key_}'
             result_list.append(make_format_for_child(val, next_parent))
