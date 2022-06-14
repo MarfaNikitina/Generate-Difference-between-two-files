@@ -30,12 +30,10 @@ def render(diff_dict, depth=0):
 
 
 def format_value_to_string(value, indent1=''):
-    if value is True:
-        value = 'true'
-    elif value is False:
-        value = 'false'
-    elif value is None:
-        value = 'null'
+    if isinstance(value, bool):
+        return 'true' if value else 'false'
+    if value is None:
+        return 'null'
     if not isinstance(value, dict):
         return str(value)
 
@@ -43,11 +41,11 @@ def format_value_to_string(value, indent1=''):
         result = ''
         tab = 2 * TAB
         current_ind = indent1 + tab * (depth + 2)
-        for k, v in node.items():
-            if isinstance(v, dict):
-                result += current_ind + k + ': {\n' + walk(v, depth + 1) + '\n'
+        for key, value in node.items():
+            if isinstance(value, dict):
+                result += current_ind + key + ': {\n' + walk(value, depth + 1) + '\n'
             else:
-                result += current_ind + k + f': {v}' + '\n'
+                result += current_ind + key + f': {value}' + '\n'
         close_bracket_indent = indent1 + tab * (depth + 1)
         result += close_bracket_indent + '}'
         return result
