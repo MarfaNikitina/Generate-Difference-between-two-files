@@ -18,18 +18,18 @@ def render(diff_dict, depth=0):
                       f"{LINE_BREAK}"
         elif node['STATUS'] in ['UNCHANGED', 'ADDED', 'REMOVED']:
             result += f"{indent}{format_key(key, node)}: " \
-                      f"{format_value_to_string(node['VALUE'], indent2)}\n"
+                      f"{to_str(node['VALUE'], indent2)}\n"
         elif node['STATUS'] == 'CHANGED':
             result += f"{indent}{REMOVED}{key}: " \
-                      f"{format_value_to_string(node['VALUE1'], indent2)}\n"
+                      f"{to_str(node['VALUE1'], indent2)}\n"
             result += f"{indent}{ADDED}{key}: " \
-                      f"{format_value_to_string(node['VALUE2'], indent2)}\n"
+                      f"{to_str(node['VALUE2'], indent2)}\n"
     close_bracket_indent = TAB * depth
     result += close_bracket_indent + CLOSE_BRACKET
     return result
 
 
-def format_value_to_string(value, indent1=''):
+def to_str(value, indent=''):
     if isinstance(value, bool):
         return 'true' if value else 'false'
     if value is None:
@@ -40,13 +40,13 @@ def format_value_to_string(value, indent1=''):
     def walk(node, depth=1):
         result = ''
         tab = 2 * TAB
-        current_ind = indent1 + tab * (depth + 2)
+        ind_1 = indent + tab * (depth + 2)
         for key, value in node.items():
             if isinstance(value, dict):
-                result += current_ind + key + ': {\n' + walk(value, depth + 1) + '\n'
+                result += ind_1 + key + ': {\n' + walk(value, depth + 1) + '\n'
             else:
-                result += current_ind + key + f': {value}' + '\n'
-        close_bracket_indent = indent1 + tab * (depth + 1)
+                result += ind_1 + key + f': {value}' + '\n'
+        close_bracket_indent = indent + tab * (depth + 1)
         result += close_bracket_indent + '}'
         return result
     return '{\n' + walk(value, 0)
