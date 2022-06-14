@@ -30,12 +30,10 @@ def render(diff_dict, depth=0):
 
 
 def to_str(value, indent=''):
-    if isinstance(value, bool):
-        return 'true' if value else 'false'
     if value is None:
         return 'null'
     if not isinstance(value, dict):
-        return str(value)
+        return str(value).lower()
 
     def walk(node, depth=1):
         result = ''
