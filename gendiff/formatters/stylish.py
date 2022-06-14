@@ -19,7 +19,7 @@ def render(diff_dict, depth=0):
         elif node['STATUS'] in ['UNCHANGED', 'ADDED', 'REMOVED']:
             result += f"{indent}{format_key(key, node)}: " \
                       f"{format_value_to_string(node['VALUE'], indent2)}\n"
-        elif v['STATUS'] == 'CHANGED':
+        elif node['STATUS'] == 'CHANGED':
             result += f"{indent}{REMOVED}{key}: " \
                       f"{format_value_to_string(node['VALUE1'], indent2)}\n"
             result += f"{indent}{ADDED}{key}: " \
