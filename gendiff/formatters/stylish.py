@@ -11,19 +11,19 @@ def render(diff_dict, depth=0):
     indent = TAB * depth
     result = OPEN_BRACKET + LINE_BREAK
     indent2 = indent * (depth - 1)
-    for k, v in diff_dict.items():
-        if v['STATUS'] == 'HASCHILD':
-            result += f"{indent}{UNCHANGED}{k}: " \
-                      f"{render(v['CHILDREN'], depth + 2)}" \
+    for key, node in diff_dict.items():
+        if node['STATUS'] == 'HASCHILD':
+            result += f"{indent}{UNCHANGED}{key}: " \
+                      f"{render(node['CHILDREN'], depth + 2)}" \
                       f"{LINE_BREAK}"
-        elif v['STATUS'] in ['UNCHANGED', 'ADDED', 'REMOVED']:
-            result += f"{indent}{format_key(k, v)}: " \
+        elif node['STATUS'] in ['UNCHANGED', 'ADDED', 'REMOVED']:
+            result += f"{indent}{format_key(key, node)}: " \
                       f"{format_value_to_string(v['VALUE'], indent2)}\n"
         elif v['STATUS'] == 'CHANGED':
-            result += f"{indent}{REMOVED}{k}: " \
-                      f"{format_value_to_string(v['VALUE1'], indent2)}\n"
-            result += f"{indent}{ADDED}{k}: " \
-                      f"{format_value_to_string(v['VALUE2'], indent2)}\n"
+            result += f"{indent}{REMOVED}{key}: " \
+                      f"{format_value_to_string(node['VALUE1'], indent2)}\n"
+            result += f"{indent}{ADDED}{key}: " \
+                      f"{format_value_to_string(node['VALUE2'], indent2)}\n"
     close_bracket_indent = TAB * depth
     result += close_bracket_indent + CLOSE_BRACKET
     return result

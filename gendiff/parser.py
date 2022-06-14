@@ -8,4 +8,4 @@ def parse(data, format):
     elif format == '.yaml' or format == '.yml':
         return yaml.safe_load(data)
     else:
-        print('Error. This format is not supported.')
+        raise Exception('This format is not supported.')
