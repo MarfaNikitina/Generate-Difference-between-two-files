@@ -1,4 +1,3 @@
-# !/usr/bin/env python3
 from gendiff import generate_diff
 import pytest
 import os
@@ -26,5 +25,7 @@ FIXTURES_PATH = f"{TESTS_DIR}/fixtures"
 def test_gendiff(file1, file2, expected_sample_path, format):
     f1 = f"{FIXTURES_PATH}/{file1}"
     f2 = f"{FIXTURES_PATH}/{file2}"
-    expected = open(f"{FIXTURES_PATH}/{expected_sample_path}", "r").read()
+    with open(f"{FIXTURES_PATH}/{expected_sample_path}", "r") as data:
+        expected = data.read()
+    # expected = open(f"{FIXTURES_PATH}/{expected_sample_path}", "r").read()
     assert generate_diff(f1, f2, format) == expected
