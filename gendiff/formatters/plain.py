@@ -24,14 +24,12 @@ def build_suffix(node):
 
 def render(diff_dict, path=''):
     result_list = []
-    for k, v in diff_dict.items():
-        if v['STATUS'] in ['CHANGED', 'ADDED', 'REMOVED']:
-            result_list.append(f'Property \'{path}{k}\''
-                               f' {build_suffix(v)}')
-        elif v['STATUS'] == 'HASCHILD':
-            parent = k
-            child = v['CHILDREN']
-            new_path = path + parent + '.'
-            result_list.append(render(child, new_path))
+    for key, value in diff_dict.items():
+        if value['STATUS'] in ['CHANGED', 'ADDED', 'REMOVED']:
+            result_list.append(f'Property \'{path}{key}\''
+                               f' {build_suffix(value)}')
+        elif value['STATUS'] == 'HASCHILD':
+            child = value['CHILDREN']
+            result_list.append(render(child, path + key + '.'))
     result = itertools.chain(result_list)
     return '\n'.join(result)
