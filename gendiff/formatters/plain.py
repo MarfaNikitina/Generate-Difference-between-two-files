@@ -1,6 +1,23 @@
 import itertools
 
 
+def render(diff_dict):
+    return travel(diff_dict)
+
+
+def travel(diff_dict, path=''):
+    result_list = []
+    for key, value in diff_dict.items():
+        if value['STATUS'] in ['CHANGED', 'ADDED', 'REMOVED']:
+            result_list.append(f'Property \'{path}{key}\''
+                               f' {build_suffix(value)}')
+        elif value['STATUS'] == 'HASCHILD':
+            child = value['CHILDREN']
+            result_list.append(travel(child, path + key + '.'))
+    result = itertools.chain(result_list)
+    return '\n'.join(result)
+
+
 def to_str(value):
     if isinstance(value, dict):
         return '[complex value]'
@@ -20,16 +37,3 @@ def build_suffix(node):
     if node['STATUS'] == 'CHANGED':
         return f"was updated. From {to_str(node['VALUE1'])} " \
                f"to {to_str(node['VALUE2'])}"
-
-
-def render(diff_dict, path=''):
-    result_list = []
-    for key, value in diff_dict.items():
-        if value['STATUS'] in ['CHANGED', 'ADDED', 'REMOVED']:
-            result_list.append(f'Property \'{path}{key}\''
-                               f' {build_suffix(value)}')
-        elif value['STATUS'] == 'HASCHILD':
-            child = value['CHILDREN']
-            result_list.append(render(child, path + key + '.'))
-    result = itertools.chain(result_list)
-    return '\n'.join(result)
