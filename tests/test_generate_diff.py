@@ -27,5 +27,4 @@ def test_gendiff(file1, file2, expected_sample_path, format):
     f2 = f"{FIXTURES_PATH}/{file2}"
     with open(f"{FIXTURES_PATH}/{expected_sample_path}", "r") as data:
         expected = data.read()
-    # expected = open(f"{FIXTURES_PATH}/{expected_sample_path}", "r").read()
     assert generate_diff(f1, f2, format) == expected
