@@ -1,37 +1,25 @@
 import itertools
 
 
-def to_string(value):
+def to_str(value):
     if isinstance(value, dict):
         return '[complex value]'
-    if value is True:
-        value = 'true'
-    elif value is False:
-        value = 'false'
-    elif value is None:
-        value = 'null'
-    return value
-
-
-def format_value(value):
-    new_value = to_string(value)
-    exceptions = ['[complex value]', 'null', 'true', 'false']
-    if new_value in exceptions:
-        return new_value
-    elif isinstance(new_value, int):
-        return new_value
-    else:
-        return f"'{new_value}'"
+    if value is None:
+        return 'null'
+    if isinstance(value, bool) or isinstance(value, int):
+        return str(value).lower()
+    if isinstance(value, str):
+        return f"'{value}'"
 
 
 def build_suffix(node):
     if node['STATUS'] == 'ADDED':
-        return f"was added with value: {format_value(node['VALUE'])}"
+        return f"was added with value: {to_str(node['VALUE'])}"
     if node['STATUS'] == 'REMOVED':
         return "was removed"
     if node['STATUS'] == 'CHANGED':
-        return f"was updated. From {format_value(node['VALUE1'])} " \
-               f"to {format_value(node['VALUE2'])}"
+        return f"was updated. From {to_str(node['VALUE1'])} " \
+               f"to {to_str(node['VALUE2'])}"
 
 
 def render(diff_dict, path=''):

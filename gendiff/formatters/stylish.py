@@ -17,7 +17,7 @@ def render(diff_dict, depth=0):
                       f"{render(node['CHILDREN'], depth + 2)}" \
                       f"{LINE_BREAK}"
         elif node['STATUS'] in ['UNCHANGED', 'ADDED', 'REMOVED']:
-            result += f"{indent}{format_key(key, node)}: " \
+            result += f"{indent}{make_prefix(node['STATUS'])}{key}: " \
                       f"{to_str(node['VALUE'], indent2)}\n"
         elif node['STATUS'] == 'CHANGED':
             result += f"{indent}{REMOVED}{key}: " \
@@ -52,10 +52,10 @@ def to_str(value, indent=''):
     return '{\n' + walk(value, 0)
 
 
-def format_key(key, value):
-    if value['STATUS'] == 'UNCHANGED':
-        return UNCHANGED + key
-    elif value['STATUS'] == 'REMOVED':
-        return REMOVED + key
-    elif value['STATUS'] == 'ADDED':
-        return ADDED + key
+def make_prefix(status):
+    if status == 'UNCHANGED':
+        return UNCHANGED
+    elif status == 'REMOVED':
+        return REMOVED
+    elif status == 'ADDED':
+        return ADDED
