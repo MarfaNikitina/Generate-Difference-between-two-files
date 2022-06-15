@@ -7,14 +7,18 @@ ADDED = '  + '
 REMOVED = '  - '
 
 
-def render(diff_dict, depth=0):
+def render(diff_dict):
+    return travel(diff_dict)
+
+
+def travel(diff_dict, depth=0):
     indent = TAB * depth
     result = OPEN_BRACKET + LINE_BREAK
     indent2 = indent * (depth - 1)
     for key, node in diff_dict.items():
         if node['STATUS'] == 'HASCHILD':
             result += f"{indent}{UNCHANGED}{key}: " \
-                      f"{render(node['CHILDREN'], depth + 2)}" \
+                      f"{travel(node['CHILDREN'], depth + 2)}" \
                       f"{LINE_BREAK}"
         elif node['STATUS'] in ['UNCHANGED', 'ADDED', 'REMOVED']:
             result += f"{indent}{make_prefix(node['STATUS'])}{key}: " \
@@ -30,12 +34,13 @@ def render(diff_dict, depth=0):
 
 
 def to_str(value, indent=''):
-    if value is None:
-        return 'null'
-    if isinstance(value, bool):
-        return str(value).lower()
     if not isinstance(value, dict):
-        return str(value)
+        if value is None:
+            return 'null'
+        if isinstance(value, bool):
+            return str(value).lower()
+        else:
+            return str(value)
 
     def walk(node, depth=1):
         result = ''
