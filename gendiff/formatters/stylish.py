@@ -1,7 +1,4 @@
-OPEN_BRACKET = '{'
-CLOSE_BRACKET = '}'
 TAB = '  '
-LINE_BREAK = '\n'
 UNCHANGED = '    '
 ADDED = '  + '
 REMOVED = '  - '
@@ -16,23 +13,22 @@ prefix_dict = {'UNCHANGED': UNCHANGED, 'ADDED': ADDED, 'REMOVED': REMOVED}
 
 def travel(diff_dict, depth=0):
     indent = TAB * depth
-    result = OPEN_BRACKET + LINE_BREAK
-    indent2 = indent * (depth - 1)
+    result = '{\n'
+    new_indent = indent * (depth - 1)
     for key, node in diff_dict.items():
         if node['STATUS'] == 'HASCHILD':
             result += f"{indent}{UNCHANGED}{key}: " \
-                      f"{travel(node['CHILDREN'], depth + 2)}" \
-                      f"{LINE_BREAK}"
+                      f"{travel(node['CHILDREN'], depth + 2)}\n"
         elif node['STATUS'] == 'CHANGED':
             result += f"{indent}{REMOVED}{key}: " \
-                      f"{to_str(node['VALUE1'], indent2)}\n"
+                      f"{to_str(node['VALUE1'], new_indent)}\n"
             result += f"{indent}{ADDED}{key}: " \
-                      f"{to_str(node['VALUE2'], indent2)}\n"
+                      f"{to_str(node['VALUE2'], new_indent)}\n"
         else:
             result += f"{indent}{prefix_dict[node['STATUS']]}{key}: " \
-                      f"{to_str(node['VALUE'], indent2)}\n"
+                      f"{to_str(node['VALUE'], new_indent)}\n"
     close_bracket_indent = TAB * depth
-    result += close_bracket_indent + CLOSE_BRACKET
+    result += close_bracket_indent + "}"
     return result
 
 
