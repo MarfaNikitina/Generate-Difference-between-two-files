@@ -1,5 +1,3 @@
-import itertools
-
 OPEN_BRACKET = '{'
 CLOSE_BRACKET = '}'
 TAB = '  '

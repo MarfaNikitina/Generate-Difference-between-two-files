@@ -10,13 +10,13 @@ package-install:
  publish:
 	poetry publish --dry-run
 
-make lint:
+lint:
 	poetry run flake8 gendiff
 
-make check:
+check:
 	poetry run pytest
 
-make test-coverage:
+test-coverage:
 	poetry run pytest --cov=gendiff --cov-report xml
 
 
