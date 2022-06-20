@@ -46,9 +46,10 @@ def to_str(value, indent='', depth=1):
             return str(value)
     result = '{\n'
     tab = 2 * TAB
-    ind_1 = indent + tab * (depth + 1)
+    new_indent = indent + tab * (depth + 1)
     for key, val in value.items():
-        result += f'{ind_1}{key}: {to_str(val, indent, depth + 1)}\n'
+        result += f'{new_indent}{key}: ' \
+                  f'{to_str(val, indent, depth + 1)}\n'
     close_bracket_indent = indent + tab * depth
     result += close_bracket_indent + '}'
     return result
