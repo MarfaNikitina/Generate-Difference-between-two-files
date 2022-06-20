@@ -7,5 +7,4 @@ def parse(data, format):
         return json.load(data)
     elif format == '.yaml' or format == '.yml':
         return yaml.safe_load(data)
-    else:
-        raise Exception('This format is not supported.')
+    raise Exception(f'Format {format} is not supported by the program.')
