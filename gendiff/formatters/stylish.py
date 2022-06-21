@@ -32,25 +32,6 @@ def travel(diff_dict, depth=0):
     return result
 
 
-def to_str2(value, indent='', depth=1):
-    if not isinstance(value, dict):
-        if value is None:
-            return 'null'
-        if isinstance(value, bool) or isinstance(value, int):
-            return str(value).lower()
-        else:
-            return str(value)
-    result = '{\n'
-    tab = 2 * TAB
-    new_indent = indent + tab * (depth + 1)
-    for key, val in value.items():
-        result += f'{new_indent}{key}: ' \
-                  f'{to_str2(val, indent, depth + 1)}\n'
-    close_bracket_indent = indent + tab * depth
-    result += close_bracket_indent + '}'
-    return result
-
-
 def to_str(value, indent='', depth=1):
     if isinstance(value, bool):
         return str(value).lower()
@@ -62,7 +43,7 @@ def to_str(value, indent='', depth=1):
         new_indent = indent + tab * (depth + 1)
         for key, val in value.items():
             result += f'{new_indent}{key}: ' \
-                    f'{to_str(val, indent, depth + 1)}\n'
+                      f'{to_str(val, indent, depth + 1)}\n'
         close_bracket_indent = indent + tab * depth
         result += close_bracket_indent + '}'
         return result
