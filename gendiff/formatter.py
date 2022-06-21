@@ -10,3 +10,4 @@ def format(diff, format_type):
         return render_plain(diff)
     if format_type == 'json':
         return render_json(diff)
+    raise Exception(f'Unknown format: {format_type}')
