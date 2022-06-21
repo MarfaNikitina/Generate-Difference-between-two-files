@@ -8,10 +8,8 @@ def render(diff_dict):
     return travel(diff_dict)
 
 
-prefix_dict = {'UNCHANGED': UNCHANGED, 'ADDED': ADDED, 'REMOVED': REMOVED}
-
-
 def travel(diff_dict, depth=0):
+    prefix_dict = {'UNCHANGED': UNCHANGED, 'ADDED': ADDED, 'REMOVED': REMOVED}
     indent = TAB * depth
     result = '{\n'
     new_indent = indent * (depth - 1)
@@ -47,5 +45,4 @@ def to_str(value, indent='', depth=1):
         close_bracket_indent = indent + tab * depth
         result += close_bracket_indent + '}'
         return result
-    else:
-        return str(value)
+    return str(value)

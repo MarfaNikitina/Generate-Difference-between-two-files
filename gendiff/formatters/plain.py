@@ -23,10 +23,11 @@ def to_str(value):
         return '[complex value]'
     if value is None:
         return 'null'
-    if isinstance(value, bool) or isinstance(value, int):
+    if isinstance(value, bool):
         return str(value).lower()
     if isinstance(value, str):
         return f"'{value}'"
+    return value
 
 
 def build_suffix(node):
