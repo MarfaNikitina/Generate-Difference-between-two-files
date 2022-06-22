@@ -10,7 +10,7 @@ def travel(diff, path=''):
     for key, value in diff.items():
         if value['STATUS'] in ['CHANGED', 'ADDED', 'REMOVED']:
             lines.append(f'Property \'{path}{key}\''
-                               f' {build_suffix(value)}')
+                         f' {build_suffix(value)}')
         elif value['STATUS'] == 'HASCHILD':
             child = value['CHILDREN']
             lines.append(travel(child, path + key + '.'))
