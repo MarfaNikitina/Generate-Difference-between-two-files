@@ -1,34 +1,34 @@
-def calculate_diff(dict1, dict2):
-    res_dict = {}
-    keys = sorted(set(dict1.keys()).union(set(dict2.keys())))
+def calculate_diff(data1, data2):
+    diff = {}
+    keys = sorted(set(data1.keys()).union(set(data2.keys())))
     for key in keys:
-        res_dict[key] = generate_key_diff(dict1, dict2, key)
-    return res_dict
+        diff[key] = generate_key_diff(data1, data2, key)
+    return diff
 
 
-def generate_key_diff(dict1, dict2, key):
-    if isinstance(dict1.get(key), dict) and isinstance(dict2.get(key), dict):
+def generate_key_diff(data1, data2, key):
+    if isinstance(data1.get(key), dict) and isinstance(data2.get(key), dict):
         return {
             'STATUS': 'HASCHILD',
-            'CHILDREN': calculate_diff(dict1[key], dict2[key])
+            'CHILDREN': calculate_diff(data1[key], data2[key])
         }
-    if dict1.get(key) == dict2.get(key):
+    if data1.get(key) == data2.get(key):
         return {
             'STATUS': 'UNCHANGED',
-            'VALUE': dict1[key]
+            'VALUE': data1[key]
         }
-    if key in dict1.keys() and key not in dict2.keys():
+    if key in data1.keys() and key not in data2.keys():
         return {
             'STATUS': 'REMOVED',
-            'VALUE': dict1[key]
+            'VALUE': data1[key]
         }
-    if key in dict2.keys() and key not in dict1.keys():
+    if key in data2.keys() and key not in data1.keys():
         return {
             'STATUS': 'ADDED',
-            'VALUE': dict2[key]
+            'VALUE': data2[key]
         }
     return {
         'STATUS': 'CHANGED',
-        'VALUE1': dict1[key],
-        'VALUE2': dict2[key]
+        'VALUE1': data1[key],
+        'VALUE2': data2[key]
     }

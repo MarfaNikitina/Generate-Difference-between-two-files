@@ -14,4 +14,4 @@ def generate_diff(file1, file2, format_type='stylish'):
 def get_data(some_file):
     with open(some_file, "r") as data:
         required_data = parse(data, os.path.splitext(some_file)[1][1:])
-    return required_data
+        return required_data

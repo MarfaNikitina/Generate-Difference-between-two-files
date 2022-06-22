@@ -25,8 +25,7 @@ def travel(diff_dict, depth=0):
         else:
             result += f"{indent}{prefix_dict[node['STATUS']]}{key}: " \
                       f"{to_str(node['VALUE'], new_indent)}\n"
-    close_bracket_indent = TAB * depth
-    result += close_bracket_indent + "}"
+    result += indent + "}"
     return result
 
 
