@@ -4,16 +4,16 @@ ADDED = '  + '
 REMOVED = '  - '
 
 
-def render(diff_dict):
-    return travel(diff_dict)
+def render(diff):
+    return travel(diff)
 
 
-def travel(diff_dict, depth=0):
-    prefix_dict = {'UNCHANGED': UNCHANGED, 'ADDED': ADDED, 'REMOVED': REMOVED}
+def travel(diff, depth=0):
+    prefix = {'UNCHANGED': UNCHANGED, 'ADDED': ADDED, 'REMOVED': REMOVED}
     indent = TAB * depth
     result = '{\n'
     new_indent = indent * (depth - 1)
-    for key, node in diff_dict.items():
+    for key, node in diff.items():
         if node['STATUS'] == 'HASCHILD':
             result += f"{indent}{UNCHANGED}{key}: " \
                       f"{travel(node['CHILDREN'], depth + 2)}\n"
@@ -23,7 +23,7 @@ def travel(diff_dict, depth=0):
             result += f"{indent}{ADDED}{key}: " \
                       f"{to_str(node['VALUE2'], new_indent)}\n"
         else:
-            result += f"{indent}{prefix_dict[node['STATUS']]}{key}: " \
+            result += f"{indent}{prefix[node['STATUS']]}{key}: " \
                       f"{to_str(node['VALUE'], new_indent)}\n"
     result += indent + "}"
     return result

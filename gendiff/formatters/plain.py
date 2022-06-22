@@ -1,20 +1,20 @@
 import itertools
 
 
-def render(diff_dict):
-    return travel(diff_dict)
+def render(diff):
+    return travel(diff)
 
 
-def travel(diff_dict, path=''):
-    result_list = []
-    for key, value in diff_dict.items():
+def travel(diff, path=''):
+    lines = []
+    for key, value in diff.items():
         if value['STATUS'] in ['CHANGED', 'ADDED', 'REMOVED']:
-            result_list.append(f'Property \'{path}{key}\''
+            lines.append(f'Property \'{path}{key}\''
                                f' {build_suffix(value)}')
         elif value['STATUS'] == 'HASCHILD':
             child = value['CHILDREN']
-            result_list.append(travel(child, path + key + '.'))
-    result = itertools.chain(result_list)
+            lines.append(travel(child, path + key + '.'))
+    result = itertools.chain(lines)
     return '\n'.join(result)
 
 
